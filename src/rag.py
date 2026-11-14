@@ -24,6 +24,15 @@ Reglas:
 """
 
 
+def clean(text):
+    """Drops a trailing "No lo encuentro..." that the model sometimes appends after a valid answer.
+    Returns (text, slipped)."""
+    rest = re.sub(r"\[\d+\]", "", text.replace(NOT_FOUND, "")).strip(" .\n")
+    if NOT_FOUND in text and rest:
+        return re.sub(r"\s*(\[\d+\]\s*)?" + re.escape(NOT_FOUND), "", text).strip(), True
+    return (NOT_FOUND if NOT_FOUND in text else text.strip()), False
+
+
 def build_prompt(q, ctx):
     blocks = "\n\n".join(f"[{i}] ({cite(c)})\n{c['text']}" for i, c in enumerate(ctx, 1))
     return f"Fragmentos:\n\n{blocks}\n\nPregunta: {q}\nRespuesta:"
@@ -37,9 +46,11 @@ def answer(q, retriever, k=6, model=LLM):
         "model": model, "stream": False, "options": {"temperature": 0, "num_ctx": 8192},
         "messages": [{"role": "system", "content": SYSTEM}, {"role": "user", "content": build_prompt(q, ctx)}]})
     r.raise_for_status()
-    text = r.json()["message"]["content"].strip()
-    used = sorted({int(n) for n in re.findall(r"\[(\d+)\]", text) if 1 <= int(n) <= len(ctx)})
-    return {"q": q, "answer": text, "not_found": NOT_FOUND.rstrip(".") in text,
+    raw = r.json()["message"]["content"].strip()
+    text, _ = clean(raw)
+    refs = re.findall(r"\[(\d+(?:\s*,\s*\d+)*)\]", text)            # [2] and [2, 3]
+    used = sorted({int(n) for g in refs for n in g.split(",") if 1 <= int(n) <= len(ctx)})
+    return {"q": q, "answer": raw, "not_found": NOT_FOUND.rstrip(".") in raw,
             "citations": [{"n": n, "cite": cite(ctx[n - 1]), "doc": ctx[n - 1]["doc"],
                            "section": ctx[n - 1]["section"], "text": ctx[n - 1]["text"]} for n in used],
             "retrieved": [cite(c) for c in ctx],

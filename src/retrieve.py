@@ -45,7 +45,7 @@ class Retriever:
         self.model, self.emb = None, None
         if dense:
             f = INDEX / "emb.npy"
-            self.emb = np.load(f).astype(np.float32) if f.exists() else self.build()
+            self.emb = np.load(f).astype(np.float32) if f.exists() else None   # build with --build
 
     @staticmethod
     def _ctx(c):        # what gets indexed: document, section and sub-section titles + text
@@ -75,6 +75,8 @@ class Retriever:
         return np.argsort(-self.bm25.get_scores(tokens(q)))
 
     def rank_dense(self, q):
+        if self.emb is None:
+            raise SystemExit("No embedding index: run python src/retrieve.py --build")
         v = self.embed([q])[0]
         return np.argsort(-(self.emb @ v))
 
@@ -106,9 +108,9 @@ if __name__ == "__main__":
     ap.add_argument("-k", type=int, default=5)
     ap.add_argument("--mode", default="hybrid", choices=["hybrid", "bm25", "dense"])
     a = ap.parse_args()
-    r = Retriever(dense=a.mode != "bm25" or a.build)
+    r = Retriever(dense=a.mode != "bm25" and not a.build)
     if a.build:
-        r.build(); print("index ->", INDEX)
+        r.emb = r.build(); print("index ->", INDEX)
     if a.q:
         for c in r.search(a.q, a.k, a.mode):
             print(f"[{cite(c)}]\n  {c['text'][:300]}\n")

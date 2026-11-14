@@ -3,3 +3,4 @@ data/pdf/*.pdf
 __pycache__/
 *.pyc
 results/retrieval_eval_bm25.json
+results/run.log

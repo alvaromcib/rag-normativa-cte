@@ -1,0 +1,1305 @@
+{
+ "n_questions": 30,
+ "n_chunks": 1743,
+ "modes": {
+  "bm25": {
+   "metrics": {
+    "sec@1": 0.567,
+    "sec@5": 0.833,
+    "psg@1": 0.6,
+    "psg@5": 0.7,
+    "psg@10": 0.833,
+    "mrr": 0.652,
+    "ms_per_query": 3.6
+   },
+   "per_question": [
+    {
+     "id": 1,
+     "first_passage_rank": 7,
+     "top": [
+      "DB-SI Anejo A",
+      "DB-SI Anejo A",
+      "DB-SI SI 3"
+     ],
+     "sec@1": false,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": false,
+     "psg@10": true
+    },
+    {
+     "id": 2,
+     "first_passage_rank": null,
+     "top": [
+      "DB-SUA SUA 1",
+      "DB-SI SI 3",
+      "DB-SI Anejo A"
+     ],
+     "sec@1": false,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": false,
+     "psg@10": false
+    },
+    {
+     "id": 3,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SI SI 1",
+      "DB-SI Anejo A",
+      "DB-SI SI 1"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 4,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SI SI 4",
+      "DB-SI SI 4",
+      "DB-SI SI 4"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 5,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SI SI 5",
+      "DB-SI SI 5",
+      "DB-SUA Anejo A"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 6,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SI SI 2",
+      "DB-SI SI 2",
+      "DB-SI SI 6"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 7,
+     "first_passage_rank": 10,
+     "top": [
+      "DB-SI Anejo B",
+      "DB-SI SI 1",
+      "DB-SI SI 1"
+     ],
+     "sec@1": false,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": false,
+     "psg@10": true
+    },
+    {
+     "id": 8,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SI SI 5",
+      "DB-SI SI 5",
+      "DB-SUA Anejo A"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 9,
+     "first_passage_rank": null,
+     "top": [
+      "REBT ITC-BT-30",
+      "REBT ITC-BT-06",
+      "REBT ITC-BT-06"
+     ],
+     "sec@1": false,
+     "sec@5": false,
+     "psg@1": false,
+     "psg@5": false,
+     "psg@10": false
+    },
+    {
+     "id": 10,
+     "first_passage_rank": 2,
+     "top": [
+      "DB-SUA SUA 1",
+      "DB-SUA SUA 1",
+      "DB-SUA SUA 1"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 11,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SUA SUA 1",
+      "DB-SUA Anejo A",
+      "DB-SUA SUA 9"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 12,
+     "first_passage_rank": 3,
+     "top": [
+      "REBT ITC-BT-28",
+      "REBT ITC-BT-28",
+      "DB-SUA SUA 4"
+     ],
+     "sec@1": false,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 13,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SUA SUA 4",
+      "REBT ITC-BT-28",
+      "DB-SUA SUA 1"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 14,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SUA SUA 9",
+      "DB-SUA SUA 9",
+      "DB-SUA SUA 9"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 15,
+     "first_passage_rank": 9,
+     "top": [
+      "DB-HE Anejo F",
+      "DB-HE Introducción",
+      "DB-HE HE 4"
+     ],
+     "sec@1": false,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": false,
+     "psg@10": true
+    },
+    {
+     "id": 16,
+     "first_passage_rank": null,
+     "top": [
+      "DB-HE Anejo A",
+      "DB-SI Anejo A",
+      "DB-SI SI 4"
+     ],
+     "sec@1": false,
+     "sec@5": false,
+     "psg@1": false,
+     "psg@5": false,
+     "psg@10": false
+    },
+    {
+     "id": 17,
+     "first_passage_rank": 9,
+     "top": [
+      "DB-SUA Anejo A",
+      "REBT ITC-BT-52",
+      "REBT ITC-BT-52"
+     ],
+     "sec@1": false,
+     "sec@5": false,
+     "psg@1": false,
+     "psg@5": false,
+     "psg@10": true
+    },
+    {
+     "id": 18,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-HE HE 3",
+      "DB-HE HE 3",
+      "DB-HE Anejo A"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 19,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-38",
+      "REBT ITC-BT-52",
+      "REBT Artículo 4"
+     ],
+     "sec@1": false,
+     "sec@5": false,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 20,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-25",
+      "REBT ITC-BT-52",
+      "REBT ITC-BT-52"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 21,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-25",
+      "REBT ITC-BT-19",
+      "REBT ITC-BT-25"
+     ],
+     "sec@1": false,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 22,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-05",
+      "REBT ITC-BT-05",
+      "REBT Artículo 21"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 23,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-27",
+      "REBT ITC-BT-27",
+      "REBT ITC-BT-27"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 24,
+     "first_passage_rank": null,
+     "top": [
+      "DB-HE HE 5",
+      "REBT ITC-BT-04",
+      "REBT ITC-BT-02"
+     ],
+     "sec@1": false,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": false,
+     "psg@10": false
+    },
+    {
+     "id": 25,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-38",
+      "REBT ITC-BT-01",
+      "REBT ITC-BT-46"
+     ],
+     "sec@1": false,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 26,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-52",
+      "REBT ITC-BT-52",
+      "REBT ITC-BT-52"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 27,
+     "first_passage_rank": 4,
+     "top": [
+      "REBT ITC-BT-15",
+      "REBT ITC-BT-16",
+      "REBT ITC-BT-15"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 28,
+     "first_passage_rank": null,
+     "top": [
+      "REBT ITC-BT-05",
+      "REBT ITC-BT-04",
+      "REBT ITC-BT-48"
+     ],
+     "sec@1": false,
+     "sec@5": false,
+     "psg@1": false,
+     "psg@5": false,
+     "psg@10": false
+    },
+    {
+     "id": 29,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-24",
+      "REBT ITC-BT-42",
+      "REBT ITC-BT-22"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 30,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-05",
+      "REBT ITC-BT-05",
+      "REBT Artículo 21"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    }
+   ]
+  },
+  "dense": {
+   "metrics": {
+    "sec@1": 0.867,
+    "sec@5": 0.967,
+    "psg@1": 0.667,
+    "psg@5": 0.933,
+    "psg@10": 0.967,
+    "mrr": 0.771,
+    "ms_per_query": 2232.6
+   },
+   "per_question": [
+    {
+     "id": 1,
+     "first_passage_rank": 3,
+     "top": [
+      "DB-SI SI 3",
+      "DB-SI SI 3",
+      "DB-SI SI 3"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 2,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SI SI 3",
+      "DB-SI SI 3",
+      "DB-SI SI 5"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 3,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SI SI 1",
+      "DB-SI SI 1",
+      "DB-SI SI 1"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 4,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SI SI 4",
+      "DB-SI SI 4",
+      "DB-SI SI 4"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 5,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SI SI 5",
+      "DB-SI SI 5",
+      "DB-SI SI 5"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 6,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SI SI 2",
+      "DB-SI SI 2",
+      "DB-SI SI 6"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 7,
+     "first_passage_rank": 6,
+     "top": [
+      "DB-SI SI 6",
+      "DB-SI SI 6",
+      "DB-SI SI 6"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": false,
+     "psg@10": true
+    },
+    {
+     "id": 8,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SI SI 5",
+      "DB-SI SI 5",
+      "DB-SI SI 5"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 9,
+     "first_passage_rank": null,
+     "top": [
+      "DB-SUA SUA 1",
+      "DB-SUA SUA 1",
+      "DB-SUA SUA 1"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": false,
+     "psg@10": false
+    },
+    {
+     "id": 10,
+     "first_passage_rank": 2,
+     "top": [
+      "DB-SUA SUA 1",
+      "DB-SUA SUA 1",
+      "DB-SUA SUA 1"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 11,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SUA SUA 1",
+      "DB-SUA SUA 1",
+      "DB-SUA SUA 1"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 12,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SUA SUA 4",
+      "DB-SUA SUA 4",
+      "REBT ITC-BT-28"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 13,
+     "first_passage_rank": 4,
+     "top": [
+      "REBT Artículo 9",
+      "REBT ITC-BT-09",
+      "DB-SUA SUA 4"
+     ],
+     "sec@1": false,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 14,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SUA SUA 9",
+      "DB-SUA SUA 9",
+      "DB-SUA SUA 9"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 15,
+     "first_passage_rank": 2,
+     "top": [
+      "DB-HE HE 4",
+      "DB-HE HE 4",
+      "DB-HE Introducción"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 16,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-HE HE 5",
+      "DB-HE Introducción",
+      "DB-HE Introducción"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 17,
+     "first_passage_rank": 3,
+     "top": [
+      "REBT ITC-BT-10",
+      "DB-HE HE 6",
+      "DB-HE HE 6"
+     ],
+     "sec@1": false,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 18,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-HE HE 3",
+      "DB-HE HE 3",
+      "DB-HE HE 3"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 19,
+     "first_passage_rank": 5,
+     "top": [
+      "REBT Artículo 4",
+      "REBT Artículo 4",
+      "REBT ITC-BT-34"
+     ],
+     "sec@1": false,
+     "sec@5": false,
+     "psg@1": false,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 20,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-25",
+      "REBT ITC-BT-52",
+      "REBT ITC-BT-25"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 21,
+     "first_passage_rank": 2,
+     "top": [
+      "REBT ITC-BT-19",
+      "REBT ITC-BT-25",
+      "REBT ITC-BT-19"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 22,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-05",
+      "REBT ITC-BT-05",
+      "REBT Artículo 21"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 23,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-27",
+      "REBT ITC-BT-27",
+      "REBT ITC-BT-31"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 24,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-04",
+      "REBT ITC-BT-04",
+      "REBT ITC-BT-04"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 25,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-01",
+      "REBT ITC-BT-38",
+      "REBT ITC-BT-09"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 26,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-52",
+      "REBT ITC-BT-52",
+      "REBT ITC-BT-10"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 27,
+     "first_passage_rank": 3,
+     "top": [
+      "REBT ITC-BT-49",
+      "REBT ITC-BT-07",
+      "REBT ITC-BT-15"
+     ],
+     "sec@1": false,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 28,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT Artículo 1",
+      "REBT Real Decreto",
+      "REBT ITC-BT-47"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 29,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-24",
+      "REBT ITC-BT-33",
+      "REBT ITC-BT-36"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 30,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-05",
+      "REBT Artículo 21",
+      "REBT ITC-BT-38"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    }
+   ]
+  },
+  "hybrid": {
+   "metrics": {
+    "sec@1": 0.833,
+    "sec@5": 0.933,
+    "psg@1": 0.7,
+    "psg@5": 0.9,
+    "psg@10": 0.933,
+    "mrr": 0.773,
+    "ms_per_query": 2219.1
+   },
+   "per_question": [
+    {
+     "id": 1,
+     "first_passage_rank": 5,
+     "top": [
+      "DB-SI SI 3",
+      "DB-SI Anejo A",
+      "DB-SI Anejo A"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 2,
+     "first_passage_rank": 4,
+     "top": [
+      "DB-SI SI 3",
+      "DB-SI SI 3",
+      "DB-SI Anejo A"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 3,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SI SI 1",
+      "DB-SI SI 1",
+      "DB-SI SI 1"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 4,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SI SI 4",
+      "DB-SI SI 4",
+      "DB-SI SI 4"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 5,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SI SI 5",
+      "DB-SI SI 5",
+      "DB-SI SI 5"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 6,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SI SI 2",
+      "DB-SI SI 2",
+      "DB-SI SI 6"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 7,
+     "first_passage_rank": 7,
+     "top": [
+      "DB-SI SI 6",
+      "DB-SI SI 6",
+      "DB-SI Anejo B"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": false,
+     "psg@10": true
+    },
+    {
+     "id": 8,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SI SI 5",
+      "DB-SI SI 5",
+      "DB-SI SI 5"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 9,
+     "first_passage_rank": null,
+     "top": [
+      "REBT ITC-BT-06",
+      "REBT ITC-BT-30",
+      "REBT ITC-BT-06"
+     ],
+     "sec@1": false,
+     "sec@5": false,
+     "psg@1": false,
+     "psg@5": false,
+     "psg@10": false
+    },
+    {
+     "id": 10,
+     "first_passage_rank": 2,
+     "top": [
+      "DB-SUA SUA 1",
+      "DB-SUA SUA 1",
+      "DB-SUA SUA 1"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 11,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SUA SUA 1",
+      "DB-SUA Anejo A",
+      "DB-SUA SUA 1"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 12,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SUA SUA 4",
+      "REBT ITC-BT-28",
+      "REBT ITC-BT-28"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 13,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SUA SUA 4",
+      "REBT ITC-BT-28",
+      "REBT ITC-BT-28"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 14,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-SUA SUA 9",
+      "DB-SUA SUA 9",
+      "DB-SUA SUA 9"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 15,
+     "first_passage_rank": 3,
+     "top": [
+      "DB-HE HE 4",
+      "DB-HE Introducción",
+      "DB-HE HE 4"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 16,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-HE HE 5",
+      "DB-SI SI 1",
+      "DB-HE HE 4"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 17,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-HE HE 6",
+      "DB-HE Anejo A",
+      "REBT ITC-BT-52"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 18,
+     "first_passage_rank": 1,
+     "top": [
+      "DB-HE HE 3",
+      "DB-HE HE 3",
+      "DB-HE HE 3"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 19,
+     "first_passage_rank": 2,
+     "top": [
+      "REBT Artículo 4",
+      "REBT ITC-BT-38",
+      "REBT ITC-BT-34"
+     ],
+     "sec@1": false,
+     "sec@5": false,
+     "psg@1": false,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 20,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-25",
+      "REBT ITC-BT-52",
+      "REBT ITC-BT-52"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 21,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-25",
+      "REBT ITC-BT-19",
+      "REBT ITC-BT-25"
+     ],
+     "sec@1": false,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 22,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-05",
+      "REBT ITC-BT-05",
+      "REBT Artículo 21"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 23,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-27",
+      "REBT ITC-BT-27",
+      "REBT ITC-BT-27"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 24,
+     "first_passage_rank": null,
+     "top": [
+      "REBT ITC-BT-04",
+      "REBT ITC-BT-10",
+      "REBT ITC-BT-05"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": false,
+     "psg@10": false
+    },
+    {
+     "id": 25,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-38",
+      "REBT ITC-BT-01",
+      "REBT ITC-BT-17"
+     ],
+     "sec@1": false,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 26,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-52",
+      "REBT ITC-BT-52",
+      "REBT ITC-BT-52"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 27,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-15",
+      "REBT ITC-BT-15",
+      "REBT ITC-BT-15"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 28,
+     "first_passage_rank": 4,
+     "top": [
+      "REBT ITC-BT-04",
+      "REBT ITC-BT-47",
+      "REBT ITC-BT-05"
+     ],
+     "sec@1": false,
+     "sec@5": true,
+     "psg@1": false,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 29,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-24",
+      "REBT ITC-BT-33",
+      "REBT ITC-BT-24"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    },
+    {
+     "id": 30,
+     "first_passage_rank": 1,
+     "top": [
+      "REBT ITC-BT-05",
+      "REBT Artículo 21",
+      "REBT ITC-BT-05"
+     ],
+     "sec@1": true,
+     "sec@5": true,
+     "psg@1": true,
+     "psg@5": true,
+     "psg@10": true
+    }
+   ]
+  }
+ }
+}

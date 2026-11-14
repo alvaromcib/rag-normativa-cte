@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asistente de normativa CTE y REBT en local · Álvaro Martín Coll</title>
+<style>/*CSS*/</style>
+<style>
+:root { --accent: #199e70; }
+.ask { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.chat { background: var(--surface-2); border-radius: 14px; padding: 18px 20px; border: 1px solid var(--ring); }
+.chat .q { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+.chat .a { font-size: 15.5px; color: var(--text-1); line-height: 1.6; }
+.chat .a sup { color: var(--accent); font-weight: 700; }
+.cites { display: grid; gap: 8px; margin-top: 14px; }
+.cite { background: var(--surface); border: 1px solid var(--ring); border-radius: 10px; padding: 10px 12px; font-size: 13px; color: var(--text-2); }
+.cite b { color: var(--accent); font-size: 12px; letter-spacing: .03em; display: block; margin-bottom: 4px; }
+.cite mark { background: color-mix(in srgb, var(--accent) 35%, transparent); color: var(--text-1); border-radius: 3px; padding: 0 2px; }
+.qlist { display: grid; gap: 6px; max-height: 520px; overflow-y: auto; padding-right: 4px; }
+.qi { display: grid; grid-template-columns: 22px 1fr auto; gap: 10px; align-items: center; text-align: left; font: inherit; font-size: 13.5px;
+  background: var(--surface-2); color: var(--text-2); border: 1px solid transparent; border-radius: 10px; padding: 9px 12px; cursor: pointer; }
+.qi:hover { color: var(--text-1); }
+.qi[aria-current="true"] { border-color: var(--accent); color: var(--text-1); }
+.qi .doc { font-size: 11px; color: var(--text-3); }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.o-correct { background: var(--good); } .o-unsupported { background: var(--warn); } .o-wrong { background: var(--crit); }
+.o-abstained { background: #8a8a85; } .o-abstained_ok { background: var(--s1); }
+.badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; color: #0b0b0b; margin-bottom: 10px; }
+.why { margin-top: 12px; font-size: 13.5px; color: var(--text-2); background: var(--surface); border-left: 3px solid var(--warn); padding: 8px 12px; border-radius: 0 8px 8px 0; }
+.gold { font-size: 12.5px; color: var(--text-3); margin-top: 10px; }
+.split { display: grid; grid-template-columns: 340px 1fr; gap: 16px; }
+@media (max-width: 860px) { .split { grid-template-columns: 1fr; } .qlist { max-height: 300px; } }
+.stack { display: flex; height: 34px; border-radius: 8px; overflow: hidden; margin: 6px 0 10px; }
+.stack div { display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #0b0b0b; }
+.mtab td, .mtab th { text-align: right; } .mtab td:first-child, .mtab th:first-child { text-align: left; }
+.mtab tr.best td { color: var(--text-1); font-weight: 600; }
+.fails { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.fail { background: var(--surface-2); border-radius: 12px; padding: 14px 16px; font-size: 13.5px; color: var(--text-2); }
+.fail b { color: var(--text-1); display: block; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<header class="hero">
+  <canvas id="bg"></canvas>
+  <div class="wrap">
+    <div class="eyebrow">Demo · RAG local · Construcción e instalaciones</div>
+    <h1>Pregunta al CTE y al REBT y recibe la cifra con su artículo</h1>
+    <p class="lede">Un asistente que responde dudas de normativa (DB-SI, DB-SUA, DB-HE y Reglamento de Baja Tensión) citando documento, sección y página. Funciona entero en un portátil: ningún documento ni pregunta sale de la empresa.</p>
+    <div class="tags"><span class="tag">Búsqueda híbrida BM25 + bge-m3</span><span class="tag">qwen2.5:7b con Ollama</span><span class="tag">Citas verificables</span><span class="tag">Sin nube</span></div>
+  </div>
+</header>
+<main class="wrap">
+  <section class="kpis" id="kpis"></section>
+
+  <div class="grid">
+    <section class="card reveal">
+      <h2>Pruébalo con las preguntas del test</h2>
+      <p class="sub">33 preguntas redactadas como las haría un técnico: 30 con respuesta en los documentos y 3 sobre normas que no están (RITE, Código Estructural, alta tensión). Respuestas reales del modelo.</p>
+      <div class="controls" id="filters"></div>
+      <div class="split">
+        <div class="qlist" id="qlist"></div>
+        <div id="detail"></div>
+      </div>
+    </section>
+
+    <section class="card span-6 reveal">
+      <h2>Resultado de las 30 preguntas con respuesta</h2>
+      <p class="sub">Revisadas una a una frente al texto de la norma.</p>
+      <div class="stack" id="stack"></div>
+      <div class="legend" id="stack-legend"></div>
+      <p class="note" id="stack-note"></p>
+    </section>
+
+    <section class="card span-6 reveal">
+      <h2>¿Encuentra el pasaje correcto?</h2>
+      <p class="sub">Porcentaje de preguntas cuyo pasaje con la cifra aparece entre los primeros resultados, sobre los 1.743 fragmentos.</p>
+      <table class="mtab"><thead><tr><th>Búsqueda</th><th>1.º</th><th>Top 5</th><th>Top 10</th><th>MRR</th></tr></thead><tbody id="mtab"></tbody></table>
+      <p class="note" id="ret-note"></p>
+    </section>
+
+    <section class="card reveal">
+      <h2>Cómo funciona</h2>
+      <p class="sub">Cuatro pasos, todos en local.</p>
+      <div class="steps">
+        <div class="step"><b>Troceado con estructura</b>Los PDF oficiales se cortan en 1.743 fragmentos que conservan documento, sección (SI 3, ITC-BT-25, Artículo 4…), apartado y página. Se quitan cabeceras, índices y números de página.</div>
+        <div class="step"><b>Búsqueda híbrida</b>BM25 encuentra cifras y códigos literales («ITC-BT-25», «0,90 m»); los embeddings bge-m3 encuentran el significado aunque la pregunta use otras palabras.</div>
+        <div class="step"><b>Respuesta con cita</b>qwen2.5:7b responde solo con los 6 fragmentos recuperados, cita su número y, si no está, dice «No lo encuentro en los documentos indexados».</div>
+        <div class="step"><b>Evaluación honesta</b>Cada respuesta se compara con la cifra correcta y con el pasaje citado. Los fallos se muestran con su causa.</div>
+      </div>
+    </section>
+
+    <section class="card span-6 reveal">
+      <h2>Documentos indexados</h2>
+      <p class="sub">Fragmentos por documento (páginas del PDF entre paréntesis).</p>
+      <div id="docs"></div>
+      <p class="note">CTE DB-SI, DB-SUA y DB-HE (codigotecnico.org) y RD 842/2002 consolidado (BOE, última actualización 03/09/2025).</p>
+    </section>
+
+    <section class="card span-6 reveal">
+      <h2>Qué falla y qué haría en un proyecto real</h2>
+      <p class="sub">Los errores tienen un patrón claro.</p>
+      <div class="fails">
+        <div class="fail"><b>Tablas aplanadas</b>Al extraer el PDF las columnas de algunas tablas se separan; está detrás de 3 de los 9 fallos (anchura de puertas, resistencia estructural, potencia que exige proyecto). Solución: extraer las tablas como tablas e indexarlas fila a fila.</div>
+        <div class="fail"><b>Casos vecinos del mismo párrafo</b>En 2 errores el modelo toma la cifra de una excepción cercana (recorrido de evacuación, pendiente de rampa). Solución: un modelo mayor o un segundo paso que compruebe la cifra contra el pasaje citado.</div>
+        <div class="fail"><b>Siempre con la cita delante</b>Cada respuesta muestra el pasaje del que sale, así el técnico comprueba en segundos. En normativa, el asistente ayuda a buscar; no sustituye la lectura.</div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div>Demo con documentos públicos, sin datos de clientes. Código y evaluación: <a href="https://github.com/alvaromcib/rag-normativa-cte">github.com/alvaromcib/rag-normativa-cte</a></div>
+    <a class="cta" href="{{MALT_URL}}">Hablemos en Malt</a>
+  </footer>
+</main>
+<script>/*VIZ*/</script>
+<script>
+const D = /*DATA*/;
+const $ = (id) => document.getElementById(id);
+const S = D.summary, pct = (v) => Math.round(v * 100) + " %";
+const OUT = {
+  correct: ["Correcta y citada", "var(--good)"], unsupported: ["Cifra correcta, cita fallida", "var(--warn)"],
+  wrong: ["Incorrecta", "var(--crit)"], abstained: ["No la encontró", "#8a8a85"], abstained_ok: ["Fuera del corpus: se abstuvo", "var(--s1)"],
+};
+
+$("kpis").innerHTML = `
+  <div class="kpi hero-kpi"><div class="l">Respuestas correctas y citadas</div><div class="v"><span data-count="${S.correct}">0</span>/${S.n_in_scope}</div><div class="d">+${S.unsupported} con la cifra bien y la cita mal</div></div>
+  <div class="kpi"><div class="l">Pasaje correcto en el top 5</div><div class="v" data-count="${Math.round(D.retrieval.dense["psg@5"] * 100)}" data-suf=" %">0</div><div class="d">frente a ${pct(D.retrieval.bm25["psg@5"])} solo con palabras clave</div></div>
+  <div class="kpi"><div class="l">Preguntas fuera de la norma</div><div class="v">${S.oos_abstained}/${S.n_out_of_scope}</div><div class="d">dijo «no lo encuentro» en vez de inventar</div></div>
+  <div class="kpi"><div class="l">Tiempo por respuesta</div><div class="v">~${Math.round(S.s_llm_median / 60)} min</div><div class="d">portátil, solo CPU (mediana ${Math.round(S.s_llm_median)} s)</div></div>`;
+Viz.countUp($("kpis"));
+
+// Outcome bar
+const parts = ["correct", "unsupported", "wrong", "abstained"].map((k) => [k, S[k]]);
+$("stack").innerHTML = parts.filter(([, n]) => n).map(([k, n]) =>
+  `<div style="width:${(100 * n) / S.n_in_scope}%;background:${OUT[k][1]}" title="${OUT[k][0]}: ${n}">${n}</div>`).join("");
+$("stack-legend").innerHTML = parts.map(([k, n]) => `<span><i style="background:${OUT[k][1]};height:10px;width:10px;border-radius:50%"></i>${OUT[k][0]} (${n})</span>`).join("");
+$("stack-note").textContent = `En ${S.format_slips} respuestas válidas el modelo añadió al final «No lo encuentro…»; esa coletilla se elimina al mostrar la respuesta y no cambia la clasificación.`;
+
+// Retrieval table
+const names = { bm25: "Palabras clave (BM25)", dense: "Significado (bge-m3)", hybrid: "Híbrida (fusión RRF)" };
+$("mtab").innerHTML = ["bm25", "dense", "hybrid"].map((m) => {
+  const r = D.retrieval[m];
+  return `<tr class="${m === "dense" ? "best" : ""}"><td>${names[m]}</td><td>${pct(r["psg@1"])}</td><td>${pct(r["psg@5"])}</td><td>${pct(r["psg@10"])}</td><td>${r.mrr.toFixed(2)}</td></tr>`;
+}).join("");
+$("ret-note").textContent = "Con estas 30 preguntas la fusión híbrida no mejora a los embeddings solos (90 % frente a 93 % en el top 5). Se mantiene híbrida porque acierta más en la primera posición y protege búsquedas de códigos y cifras literales, pero es una decisión a validar con más preguntas.";
+
+// Docs
+Viz.bars($("docs"), { items: D.corpus.docs.map((d) => ({ label: `${d.doc} (${d.pages} p.)`, value: d.chunks })), color: "var(--accent)" });
+
+// Explorer
+const esc = (s) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+const docOf = (a) => a.gold ? a.gold.doc : "Fuera del corpus";
+let filter = "all", cur = 27;
+const FIL = [["all", "Todas"], ["correct", "Correctas"], ["wrong", "Incorrectas"], ["abstained", "No encontradas"], ["unsupported", "Cita fallida"], ["abstained_ok", "Fuera del corpus"]];
+function renderFilters() {
+  $("filters").innerHTML = FIL.map(([k, l]) => `<button class="chip" aria-pressed="${filter === k}" data-f="${k}">${l}</button>`).join("");
+  $("filters").querySelectorAll("button").forEach((b) => b.onclick = () => { filter = b.dataset.f; renderFilters(); renderList(); });
+}
+function renderList() {
+  const items = D.answers.filter((a) => filter === "all" || a.outcome === filter);
+  if (!items.find((a) => a.id === cur) && items.length) cur = items[0].id;
+  $("qlist").innerHTML = items.map((a) => `<button class="qi" aria-current="${a.id === cur}" data-id="${a.id}">
+      <span class="dot o-${a.outcome}"></span><span>${esc(a.q)}<br><span class="doc">${docOf(a)}${a.gold ? " · " + a.gold.section : ""}</span></span><span></span></button>`).join("");
+  $("qlist").querySelectorAll("button").forEach((b) => b.onclick = () => { cur = +b.dataset.id; renderList(); });
+  renderDetail();
+}
+function renderDetail() {
+  const a = D.answers.find((x) => x.id === cur); if (!a) { $("detail").innerHTML = ""; return; }
+  const key = a.gold ? a.gold.answer_key : null;
+  const hl = (t) => { let h = esc(t); if (key) h = h.split(esc(key)).join(`<mark>${esc(key)}</mark>`); return h; };
+  const ans = esc(a.answer).replace(/\[(\d+(?:,\s*\d+)*)\]/g, "<sup>[$1]</sup>");
+  $("detail").innerHTML = `<div class="chat">
+    <span class="badge" style="background:${OUT[a.outcome][1]}">${OUT[a.outcome][0]}</span>
+    <div class="q">${esc(a.q)}</div><div class="a">${ans}</div>
+    ${a.why ? `<div class="why">${esc(a.why.es)}</div>` : ""}
+    ${a.citations.length ? `<div class="cites">${a.citations.map((c) => `<div class="cite"><b>[${c.n}] ${esc(c.cite)}</b>${hl(c.text.slice(0, 700))}${c.text.length > 700 ? "…" : ""}</div>`).join("")}</div>` : ""}
+    <div class="gold">${a.gold ? `Respuesta de referencia: <b>${esc(key)}</b> en ${a.gold.doc} · ${a.gold.section}` : "Esta norma no está entre los documentos indexados."} · ${Math.round(a.s)} s en CPU</div></div>`;
+}
+renderFilters(); renderList();
+
+const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .1 });
+document.querySelectorAll(".reveal").forEach((e) => io.observe(e));
+
+// Hero background: passages lighting up as a query sweeps
+(function () {
+  const c = $("bg"), x = c.getContext("2d"); let w, h, t = 0;
+  const fit = () => { w = c.width = c.offsetWidth * devicePixelRatio; h = c.height = c.offsetHeight * devicePixelRatio; };
+  fit(); addEventListener("resize", fit);
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const lines = Array.from({ length: 60 }, (_, i) => ({ y: (i + .5) / 60, x: .45 + Math.random() * .5, l: .05 + Math.random() * .18 }));
+  (function d() {
+    x.clearRect(0, 0, w, h);
+    const sy = (Math.sin(t) * .5 + .5);
+    lines.forEach((L) => {
+      const near = Math.abs(L.y - sy) < .06;
+      x.fillStyle = near ? "rgba(25,158,112,.85)" : "rgba(25,158,112,.14)";
+      x.fillRect(L.x * w, L.y * h, L.l * w, 3 * devicePixelRatio);
+    });
+    t += 0.006; if (!reduce) requestAnimationFrame(d);
+  })();
+})();
+</script>
+</body>
+</html>

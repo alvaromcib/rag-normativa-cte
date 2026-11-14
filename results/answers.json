@@ -1,0 +1,1071 @@
+{
+ "summary": {
+  "model": "qwen2.5:7b",
+  "embeddings": "bge-m3",
+  "machine": "Intel64 Family 6 Model 126 Stepping 5, GenuineIntel",
+  "n_in_scope": 30,
+  "n_out_of_scope": 3,
+  "correct_figure": 0.733,
+  "cites_gold": 0.8,
+  "false_not_found": 10,
+  "abstained_out_of_scope": 3,
+  "s_llm_median": 117.5,
+  "minutes_total": 66.6
+ },
+ "answers": [
+  {
+   "q": "¿Cuál es la longitud máxima del recorrido de evacuación hasta una salida de planta en general?",
+   "answer": "[4] La longitud de los recorridos de evacuación hasta alguna salida de planta no excede de 50 m, excepto en los casos que se indican a continuación: - 35 m en zonas en las que se prevea la presencia de ocupantes que duermen, o en plantas de hospitalización o de tratamiento intensivo en uso Hospitalario y en plantas de escuela infantil o de enseñanza primaria. - 75 m en espacios al aire libre en los que el riesgo de declaración de un incendio sea irrelevante, por ejemplo, una cubierta de edificio, una terraza, etc.\n\nEn general, la longitud máxima del recorrido de evacuación hasta una salida de planta es de 50 m.",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 4,
+     "cite": "DB-SI · SI 3 · p. 22",
+     "doc": "DB-SI",
+     "section": "SI 3",
+     "text": "to; - 50 m si se trata de una planta, incluso de uso Aparcamiento, que tiene una salida directa al espacio exterior seguro y la ocupación no excede de 25 personas, o bien de un espacio al aire libre en el que el riesgo de incendio sea irrelevante, por ejemplo, una cubierta de edificio, una terraza, etc. La altura de evacuación descendente de la planta considerada no excede de 28 m, excepto en uso Residencial Público, en cuyo caso es, como máximo, la segunda planta por encima de la de salida de edificio(2), o de 10 m cuando la evacuación sea ascendente. Plantas o recintos que disponen de más de una salida de planta o salida de recinto respectivamente (3) La longitud de los recorridos de evacuación hasta alguna salida de planta no excede de 50 m, excepto en los casos que se indican a continuación: - 35 m en zonas en las que se prevea la presencia de ocupantes que duermen, o en plantas de hospitalización o de tratamiento intensivo en uso Hospitalario y en plantas de escuela infantil o de enseñanza primaria. - 75 m en espacios al aire libre en los que el riesgo de declaración de un incen"
+    }
+   ],
+   "retrieved": [
+    "DB-SI · SI 3 · p. 22",
+    "DB-SI · Anejo A · p. 42",
+    "DB-SI · Anejo A · p. 42",
+    "DB-SI · SI 3 · p. 22",
+    "DB-SI · SI 3 · p. 22",
+    "DB-SI · SI 3 · p. 22"
+   ],
+   "s_retrieval": 2.23,
+   "s_llm": 187.0,
+   "model": "qwen2.5:7b",
+   "id": 1,
+   "gold": {
+    "doc": "DB-SI",
+    "section": "SI 3",
+    "answer_key": "25 m"
+   },
+   "correct_figure": false,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Qué anchura mínima debe tener una puerta en un recorrido de evacuación?",
+   "answer": "[1] La anchura mínima de una puerta en un recorrido de evacuación debe ser al menos igual al 80% de la anchura de cálculo de la escalera. En uso Hospitalario, la anchura mínima de la puerta es de A ≥ 1,05 m, incluso en puertas de habitación. En uso Hospitalario A ≥ 2,20 m (≥ 2,10 m en el paso a través de puertas). En establecimientos de uso Comercial, si la superficie construida del área de ventas excede de 400 m² y está previsto el uso de carros para transporte de productos, entre baterías con más de 10 cajas de cobro y estanterías, la anchura mínima de los pasillos es A ≥",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "DB-SI · SI 3 · 4.2 Cálculo · p. 26",
+     "doc": "DB-SI",
+     "section": "SI 3",
+     "text": "sario aplicar la hipótesis de bloqueo de salidas de planta indicada en el punto 4.1 en una de las plantas, bajo la hipótesis más desfavorable; S= Superficie útil del recinto, o bien de la escalera protegida en el conjunto de las plantas de las que provienen las P personas, incluyendo la superficie de los tramos, de los rellanos y de las mesetas intermedias o bien del pasillo protegido. SI 3. Evacuación de ocupantes (1) La anchura de cálculo de una puerta de salida del recinto de una escalera protegida a planta de salida del edificio debe ser al menos igual al 80% de la anchura de cálculo de la escalera. (2) En uso Hospitalario A  1,05 m, incluso en puertas de habitación. (3) En uso Hospitalario A  2,20 m ( 2,10 m en el paso a través de puertas). (4) En establecimientos de uso Comercial, la anchura mínima de los pasillos situados en áreas de venta es la siguiente: a) Si la superficie construida del área de ventas en la planta considerada excede de 400 m2: - si está previsto el uso de carros para transporte de productos: entre baterías con más de 10 cajas de cobro y estanterías: A "
+    }
+   ],
+   "retrieved": [
+    "DB-SI · SI 3 · 4.2 Cálculo · p. 26",
+    "DB-SI · SI 3 · 4.2 Cálculo · p. 26",
+    "DB-SI · Anejo A · p. 42",
+    "DB-SI · SI 3 · 4.2 Cálculo · p. 26",
+    "DB-SI · SI 3 · 4.2 Cálculo · p. 26",
+    "DB-SI · SI 5 · p. 36"
+   ],
+   "s_retrieval": 2.21,
+   "s_llm": 201.6,
+   "model": "qwen2.5:7b",
+   "id": 2,
+   "gold": {
+    "doc": "DB-SI",
+    "section": "SI 3",
+    "answer_key": "0,80 m"
+   },
+   "correct_figure": false,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Qué superficie máxima puede tener un sector de incendio en un edificio de viviendas?",
+   "answer": "[1] La superficie construida de todo sector de incendio en un edificio residencial no debe exceder de 2.500 m2. No se establece límite de superficie para los sectores de riesgo mínimo.",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "DB-SI · SI 1 · p. 10",
+     "doc": "DB-SI",
+     "section": "SI 1",
+     "text": "I, sea igual o superior a tres millones de megajulios. - Un espacio diáfano puede constituir un único sector de incendio que supere los límites de superficie construida que se establecen, siempre que al menos el 90% de ésta se desarrolle en una planta, sus salidas comuniquen directamente con el espacio libre exterior, al menos el 75% de su perímetro sea fachada y no exista sobre dicho recinto ninguna zona habitable. - No se establece límite de superficie para los sectores de riesgo mínimo. Residencial Vivienda - La superficie construida de todo sector de incendio no debe exceder de 2.500 m2. - Los elementos que separan viviendas entre sí deben ser al menos EI 60. Administrativo - La superficie construida de todo sector de incendio no debe exceder de 2.500 m2. Comercial(3) - Excepto en los casos contemplados en los guiones siguientes, la superficie construida de todo sector de incendio no debe exceder de: i) 2.500 m2, en general; ii) 10.000 m2 en los establecimientos o centros comerciales que ocupen en su totalidad un edificio íntegramente protegido con una instalación automática de e"
+    }
+   ],
+   "retrieved": [
+    "DB-SI · SI 1 · p. 10",
+    "DB-SI · SI 1 · p. 10",
+    "DB-SI · SI 1 · p. 10",
+    "DB-SI · Anejo A · p. 42",
+    "DB-SI · SI 6 · p. 38",
+    "DB-SI · SI 1 · p. 10"
+   ],
+   "s_retrieval": 2.25,
+   "s_llm": 129.1,
+   "model": "qwen2.5:7b",
+   "id": 3,
+   "gold": {
+    "doc": "DB-SI",
+    "section": "SI 1",
+    "answer_key": "2.500 m2"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Cada cuántos metros de recorrido hay que colocar extintores portátiles?",
+   "answer": "[1] Deben colocarse extintores portátiles a una distancia máxima de 15 m de recorrido en cada planta desde todo origen de evacuación, en las zonas de riesgo especial conforme al capítulo 2 de la Sección 1 de este DB.",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "DB-SI · SI 4 · p. 32",
+     "doc": "DB-SI",
+     "section": "SI 4",
+     "text": "1.1 del Capítulo 1 de la Sección 1 de este DB, deban constituir un sector de incendio diferente, deben disponer de la dotación de instalaciones que se indica para cada local de riesgo especial, así como para cada zona, en función de su uso previsto, pero en ningún caso será inferior a la exigida con carácter general para el uso principal del edificio o del establecimiento. Tabla 1.1. Dotación de instalaciones de protección contra incendios Uso previsto del edificio o establecimiento Instalación Condiciones En general Extintores portátiles Uno de eficacia 21A -113B: - A 15 m de recorrido en cada planta, como máximo, desde todo origen de evacuación. - En las zonas de riesgo especial conforme al capítulo 2 de la Sección 1(1) de este DB. Bocas de incendio equipadas En zonas de riesgo especial alto, conforme al capítulo 2 de la Sección SI1, en las que el riesgo se deba principalmente a materias combustibles sólidas(2) Ascensor de emergencia En las plantas cuya altura de evacuación exceda de 28 m Hidrantes exteriores Si la altura de evacuación descendente excede de 28 m o si la ascendente "
+    }
+   ],
+   "retrieved": [
+    "DB-SI · SI 4 · p. 32",
+    "DB-SI · SI 4 · p. 32",
+    "DB-SI · SI 4 · p. 32",
+    "DB-SI · SI 4 · p. 32",
+    "REBT · ITC-BT-30 · 8 INSTALACIONES EN LOCALES AFECTOS A UN SERVICIO ELÉCTRICO · p. 204",
+    "DB-SI · SI 4 · p. 32"
+   ],
+   "s_retrieval": 2.19,
+   "s_llm": 141.7,
+   "model": "qwen2.5:7b",
+   "id": 4,
+   "gold": {
+    "doc": "DB-SI",
+    "section": "SI 4",
+    "answer_key": "15 m"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Qué anchura libre debe tener el vial de aproximación de los vehículos de bomberos?",
+   "answer": "[1] El vial de aproximación de los vehículos de bomberos debe tener una anchura mínima libre de 3,5 m.",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "DB-SI · SI 5 · p. 36",
+     "doc": "DB-SI",
+     "section": "SI 5",
+     "text": "Sección SI 5 Intervención de los bomberos Condiciones de aproximación y entorno(1) 1.1 Aproximación a los edificios Los viales de aproximación de los vehículos de los bomberos a los espacios de maniobra a los que se refiere el apartado 1.2, deben cumplir las condiciones siguientes: a) anchura mínima libre 3,5 m; b) altura mínima libre o gálibo 4,5 m; c) capacidad portante del vial 20 kN/m². En los tramos curvos, el carril de rodadura debe quedar delimitado por la traza de una corona circular cuyos radios mínimos deben ser 5,30 m y 12,50 m, con una anchura libre para circulación de 7,20 m. 1.2 Entorno de los edificios Los edificios con una altura de evacuación descendente mayor que 9 m deben disponer de un espacio de maniobra para los bomberos que cumpla las siguientes condiciones a lo largo de las fachadas en las que estén situados los accesos, o bien al interior del edificio, o bien al espacio abierto interior en el que se encuentren aquellos: a) anchura mínima libre 5 m b) altura libre la del edificio c) separación máxima del vehículo de bomberos a la fachada del edificio - edifici"
+    }
+   ],
+   "retrieved": [
+    "DB-SI · SI 5 · p. 36",
+    "DB-SI · SI 5 · p. 36",
+    "DB-SI · SI 5 · p. 36",
+    "DB-SUA · Anejo A · p. 35",
+    "DB-SUA · Anejo A · p. 35",
+    "DB-SUA · Anejo A · p. 35"
+   ],
+   "s_retrieval": 2.24,
+   "s_llm": 136.3,
+   "model": "qwen2.5:7b",
+   "id": 5,
+   "gold": {
+    "doc": "DB-SI",
+    "section": "SI 5",
+    "answer_key": "3,5 m"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Qué resistencia al fuego necesita la fachada en la franja junto a una escalera protegida?",
+   "answer": "[1] Según el fragmento [1], la fachada debe tener una resistencia al fuego de al menos EI 60 en una franja de 1 m de altura medida sobre el plano de la fachada, con el fin de limitar el riesgo de propagación vertical del incendio por fachada entre sectores de incendio. No se especifica si esta condición se aplica específicamente a las fachadas junto a una escalera protegida, pero se menciona que esta regla se aplica a fachadas enfrentadas en general.",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "DB-SI · SI 2 · p. 19",
+     "doc": "DB-SI",
+     "section": "SI 2",
+     "text": "a la bisectriz del ángulo formado por ambas fachadas. α 0º(1) 45º 60º 90º 135º 180º d (m) 3,00 2,75 2,50 2,00 1,25 0,50 (1) Refleja el caso de fachadas enfrentadas paralelas Figura 1.1. Fachadas enfrentadas Figura 1.2. Fachadas a 45º Figura 1.3. Fachadas a 60º Figura 1.4. Fachadas a 90º SI 2. Propagación exterior Figura 1.5. Fachadas a 135º Figura 1.6. Fachadas a 180º Con el fin de limitar el riesgo de propagación vertical del incendio por fachada entre dos sectores de incendio, entre una zona de riesgo especial alto y otras zonas más altas del edificio, o bien hacia una escalera protegida o hacia un pasillo protegido desde otras zonas, dicha fachada debe ser al menos EI 60 en una franja de 1 m de altura, como mínimo, medida sobre el plano de la fachada (véase figura 1.7). En caso de existir elementos salientes aptos para impedir el paso de las llamas, la altura de dicha franja podrá reducirse en la dimensión del citado saliente (véase figura 1.8). Figura 1.7 Encuentro forjado-fachada Figura 1. 8 Encuentro forjadofachada con saliente La clase de reacción al fuego de los sistemas cons"
+    }
+   ],
+   "retrieved": [
+    "DB-SI · SI 2 · p. 19",
+    "DB-SI · SI 2 · p. 19",
+    "DB-SI · SI 6 · p. 38",
+    "DB-SI · SI 2 · p. 19",
+    "DB-SI · SI 1 · p. 10",
+    "DB-SI · Anejo A · p. 42"
+   ],
+   "s_retrieval": 2.21,
+   "s_llm": 157.9,
+   "model": "qwen2.5:7b",
+   "id": 6,
+   "gold": {
+    "doc": "DB-SI",
+    "section": "SI 2",
+    "answer_key": "EI 60"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Qué resistencia al fuego estructural se exige en un edificio de viviendas de menos de 15 m de altura de evacuación?",
+   "answer": "No lo encuentro en los documentos indexados.",
+   "not_found": true,
+   "citations": [],
+   "retrieved": [
+    "DB-SI · SI 6 · p. 38",
+    "DB-SI · SI 6 · p. 38",
+    "DB-SI · Anejo B · p. 53",
+    "DB-SI · SI 2 · p. 19",
+    "DB-SI · SI 5 · p. 36",
+    "DB-SI · SI 1 · p. 10"
+   ],
+   "s_retrieval": 2.27,
+   "s_llm": 122.6,
+   "model": "qwen2.5:7b",
+   "id": 7,
+   "gold": {
+    "doc": "DB-SI",
+    "section": "SI 6",
+    "answer_key": "R 60"
+   },
+   "correct_figure": false,
+   "cites_gold": false
+  },
+  {
+   "q": "¿Qué altura libre o gálibo mínimo debe tener el vial de aproximación de los bomberos?",
+   "answer": "[1] El vial de aproximación de los bomberos debe tener un gálibo mínimo libre de 4,5 m [1].",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "DB-SI · SI 5 · p. 36",
+     "doc": "DB-SI",
+     "section": "SI 5",
+     "text": "Sección SI 5 Intervención de los bomberos Condiciones de aproximación y entorno(1) 1.1 Aproximación a los edificios Los viales de aproximación de los vehículos de los bomberos a los espacios de maniobra a los que se refiere el apartado 1.2, deben cumplir las condiciones siguientes: a) anchura mínima libre 3,5 m; b) altura mínima libre o gálibo 4,5 m; c) capacidad portante del vial 20 kN/m². En los tramos curvos, el carril de rodadura debe quedar delimitado por la traza de una corona circular cuyos radios mínimos deben ser 5,30 m y 12,50 m, con una anchura libre para circulación de 7,20 m. 1.2 Entorno de los edificios Los edificios con una altura de evacuación descendente mayor que 9 m deben disponer de un espacio de maniobra para los bomberos que cumpla las siguientes condiciones a lo largo de las fachadas en las que estén situados los accesos, o bien al interior del edificio, o bien al espacio abierto interior en el que se encuentren aquellos: a) anchura mínima libre 5 m b) altura libre la del edificio c) separación máxima del vehículo de bomberos a la fachada del edificio - edifici"
+    }
+   ],
+   "retrieved": [
+    "DB-SI · SI 5 · p. 36",
+    "DB-SI · SI 5 · p. 36",
+    "DB-SI · SI 5 · p. 36",
+    "DB-SUA · SUA 2 · p. 17",
+    "REBT · ITC-BT-06 · 3.9.1.7 Con ríos y canales navegables o flotables. · p. 68",
+    "DB-SI · Anejo A · p. 42"
+   ],
+   "s_retrieval": 2.28,
+   "s_llm": 111.4,
+   "model": "qwen2.5:7b",
+   "id": 8,
+   "gold": {
+    "doc": "DB-SI",
+    "section": "SI 5",
+    "answer_key": "4,5 m"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Qué altura mínima deben tener las barandillas cuando el desnivel es menor de 6 metros?",
+   "answer": "No lo encuentro en los documentos indexados.",
+   "not_found": true,
+   "citations": [],
+   "retrieved": [
+    "REBT · ITC-BT-06 · 3.2.2 Separación mínima entre conductores desnudos y entre éstos y los muros o · p. 64",
+    "REBT · ITC-BT-30 · 8 INSTALACIONES EN LOCALES AFECTOS A UN SERVICIO ELÉCTRICO · p. 204",
+    "REBT · ITC-BT-06 · 3.9.2.3 Con calles y carreteras. · p. 69",
+    "REBT · ITC-BT-06 · 3.9.1.5 Con ferrocarriles electrificados, tranvías y trolebuses · p. 67",
+    "REBT · ITC-BT-06 · 3.1.1 Cables posados · p. 61",
+    "REBT · ITC-BT-06 · 3.9.1.7 Con ríos y canales navegables o flotables. · p. 68"
+   ],
+   "s_retrieval": 2.26,
+   "s_llm": 95.0,
+   "model": "qwen2.5:7b",
+   "id": 9,
+   "gold": {
+    "doc": "DB-SUA",
+    "section": "SUA 1",
+    "answer_key": "0,90 m"
+   },
+   "correct_figure": false,
+   "cites_gold": false
+  },
+  {
+   "q": "¿Cuánto debe medir como mínimo la huella de un peldaño en una escalera de uso general?",
+   "answer": "[1] La huella de un peldaño en una escalera de uso general debe medir como mínimo 28 cm en tramos rectos. En tramos curvos, la huella medirá 28 cm, como mínimo, a una distancia de 50 cm del borde interior [2, 3].",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "DB-SUA · SUA 1 · p. 8",
+     "doc": "DB-SUA",
+     "section": "SUA 1",
+     "text": "en cada peldaño, según la dirección de la marcha. En escaleras de trazado curvo, la huella se medirá en el eje de la escalera, cuando la anchura de esta sea menor que 1 m y a 50 cm del lado más estrecho cuando sea mayor. Además la huella medirá 5 cm, como mínimo, en el lado más estrecho y 44 cm, como máximo, en el lado más ancho. 3 Podrán disponerse mesetas partidas con peldaños a 45º y escalones sin tabica. En este último caso la proyección de las huellas se superpondrá al menos 2,5 cm (véase figura 4.1). La medida de la huella no incluirá la proyección vertical de la huella del peldaño superior."
+    }
+   ],
+   "retrieved": [
+    "DB-SUA · SUA 1 · p. 8",
+    "DB-SUA · SUA 1 · 4 Dispondrán de barandilla en sus lados abiertos. · p. 11",
+    "DB-SUA · SUA 1 · 4 Dispondrán de barandilla en sus lados abiertos. · p. 11",
+    "DB-SUA · SUA 1 · 4 Dispondrán de barandilla en sus lados abiertos. · p. 11",
+    "DB-SUA · SUA 1 · 4 Dispondrán de barandilla en sus lados abiertos. · p. 11",
+    "DB-SUA · SUA 1 · p. 8"
+   ],
+   "s_retrieval": 2.23,
+   "s_llm": 132.4,
+   "model": "qwen2.5:7b",
+   "id": 10,
+   "gold": {
+    "doc": "DB-SUA",
+    "section": "SUA 1",
+    "answer_key": "28 cm"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Cuál es la pendiente máxima de una rampa que no forma parte de un itinerario accesible?",
+   "answer": "[1] La pendiente máxima de una rampa que no forma parte de un itinerario accesible es del 16%, excepto para las rampas de circulación de vehículos en aparcamientos que también estén previstas para la circulación de personas, cuya pendiente será del 16% como máximo.",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "DB-SUA · SUA 1 · 4 Dispondrán de barandilla en sus lados abiertos. · p. 11",
+     "doc": "DB-SUA",
+     "section": "SUA 1",
+     "text": " de sujeción no interferirá el paso continuo de la mano. 4.3 Rampas Los itinerarios cuya pendiente exceda del 4% se consideran rampa a efectos de este DB-SUA, y cumplirán lo que se establece en los apartados que figuran a continuación, excepto los de uso restringido y los de circulación de vehículos en aparcamientos que también estén previstas para la circulación de personas. Estas últimas deben satisfacer la pendiente máxima que se establece para ellas en el apartado 4.3.1 siguiente, así como las condiciones de la Sección SUA 7. 4.3.1 Pendiente Las rampas tendrán una pendiente del 12%, como máximo, excepto: a) las que pertenezcan a itinerarios accesibles, cuya pendiente será, como máximo, del 10% cuando su longitud sea menor que 3 m, del 8% cuando la longitud sea menor que 6 m y del 6% en el resto de los casos. Si la rampa es curva, la pendiente longitudinal máxima se medirá en el lado más desfavorable. b) las de circulación de vehículos en aparcamientos que también estén previstas para la circulación de personas, y no pertenezcan a un itinerario accesible, cuya pendiente será, como"
+    }
+   ],
+   "retrieved": [
+    "DB-SUA · SUA 1 · 4 Dispondrán de barandilla en sus lados abiertos. · p. 11",
+    "DB-SUA · Anejo A · p. 35",
+    "DB-SUA · SUA 1 · 4 Dispondrán de barandilla en sus lados abiertos. · p. 11",
+    "DB-SUA · SUA 1 · 4 Dispondrán de barandilla en sus lados abiertos. · p. 11",
+    "DB-SUA · SUA 1 · 4 Dispondrán de barandilla en sus lados abiertos. · p. 11",
+    "DB-SUA · SUA 7 · p. 27"
+   ],
+   "s_retrieval": 2.22,
+   "s_llm": 143.3,
+   "model": "qwen2.5:7b",
+   "id": 11,
+   "gold": {
+    "doc": "DB-SUA",
+    "section": "SUA 1",
+    "answer_key": "12%"
+   },
+   "correct_figure": false,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Qué iluminancia mínima debe tener una zona de circulación interior?",
+   "answer": "[1] La iluminancia mínima en zonas de circulación interior debe ser de 100 lux, excepto en aparcamientos interiores donde será de 50 lux [1].",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "DB-SUA · SUA 4 · p. 21",
+     "doc": "DB-SUA",
+     "section": "SUA 4",
+     "text": "Sección SUA 4 Seguridad frente al riesgo causado por iluminación inadecuada Alumbrado normal en zonas de circulación En cada zona se dispondrá una instalación de alumbrado capaz de proporcionar, una iluminancia mínima de 20 lux en zonas exteriores y de 100 lux en zonas interiores, excepto aparcamientos interiores en donde será de 50 lux, medida a nivel del suelo. El factor de uniformidad media será del 40% como mínimo. En las zonas de los establecimientos de uso Pública Concurrencia en las que la actividad se desarrolle con un nivel bajo de iluminación, como es el caso de los cines, teatros, auditorios, discotecas, etc., se dispondrá una iluminación de balizamiento en las rampas y en cada uno de los peldaños de las escaleras. Alumbrado de emergencia 2.1 Dotación Los edificios dispondrán de un alumbrado de emergencia que, en caso de fallo del alumbrado normal, suministre la iluminación necesaria para facilitar la visibilidad a los usuarios de manera que puedan abandonar el edificio, evite las situaciones de pánico y permita la visión de las señales indicativas de las salidas y la situ"
+    }
+   ],
+   "retrieved": [
+    "DB-SUA · SUA 4 · p. 21",
+    "REBT · ITC-BT-28 · 3.1.1 Alumbrado de evacuación. · p. 187",
+    "REBT · ITC-BT-28 · 3.1.2 Alumbrado ambiente o anti-pánico · p. 187",
+    "REBT · ITC-BT-52 · 5 REQUISITOS GENERALES DE LA INSTALACIÓN · p. 281",
+    "REBT · ITC-BT-28 · 3.1.3 Alumbrado de zonas de alto riesgo · p. 188",
+    "DB-SUA · SUA 4 · p. 21"
+   ],
+   "s_retrieval": 2.21,
+   "s_llm": 107.4,
+   "model": "qwen2.5:7b",
+   "id": 12,
+   "gold": {
+    "doc": "DB-SUA",
+    "section": "SUA 4",
+    "answer_key": "100 lux"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Qué iluminancia mínima se exige en zonas de circulación exteriores?",
+   "answer": "[1] Se exige una iluminancia mínima de 20 lux en zonas de circulación exteriores.\n\nNo lo encuentro en los documentos indexados.",
+   "not_found": true,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "DB-SUA · SUA 4 · p. 21",
+     "doc": "DB-SUA",
+     "section": "SUA 4",
+     "text": "Sección SUA 4 Seguridad frente al riesgo causado por iluminación inadecuada Alumbrado normal en zonas de circulación En cada zona se dispondrá una instalación de alumbrado capaz de proporcionar, una iluminancia mínima de 20 lux en zonas exteriores y de 100 lux en zonas interiores, excepto aparcamientos interiores en donde será de 50 lux, medida a nivel del suelo. El factor de uniformidad media será del 40% como mínimo. En las zonas de los establecimientos de uso Pública Concurrencia en las que la actividad se desarrolle con un nivel bajo de iluminación, como es el caso de los cines, teatros, auditorios, discotecas, etc., se dispondrá una iluminación de balizamiento en las rampas y en cada uno de los peldaños de las escaleras. Alumbrado de emergencia 2.1 Dotación Los edificios dispondrán de un alumbrado de emergencia que, en caso de fallo del alumbrado normal, suministre la iluminación necesaria para facilitar la visibilidad a los usuarios de manera que puedan abandonar el edificio, evite las situaciones de pánico y permita la visión de las señales indicativas de las salidas y la situ"
+    }
+   ],
+   "retrieved": [
+    "DB-SUA · SUA 4 · p. 21",
+    "REBT · ITC-BT-28 · 3.1.1 Alumbrado de evacuación. · p. 187",
+    "REBT · ITC-BT-28 · 3.1.3 Alumbrado de zonas de alto riesgo · p. 188",
+    "DB-SUA · SUA 4 · p. 21",
+    "REBT · ITC-BT-28 · 3.1.2 Alumbrado ambiente o anti-pánico · p. 187",
+    "REBT · ITC-BT-28 · 3.3.2 Con alumbrado de reemplazamiento · p. 189"
+   ],
+   "s_retrieval": 2.19,
+   "s_llm": 63.3,
+   "model": "qwen2.5:7b",
+   "id": 13,
+   "gold": {
+    "doc": "DB-SUA",
+    "section": "SUA 4",
+    "answer_key": "20 lux"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Cuándo es obligatorio un ascensor accesible o una rampa accesible entre plantas?",
+   "answer": "[1] Un ascensor accesible o una rampa accesible es obligatorio en edificios de uso Residencial Vivienda cuando hay que salvar más de dos plantas desde alguna entrada principal accesible hasta alguna vivienda o zona comunitaria, o cuando existen más de 12 viviendas en plantas sin entrada principal accesible. En otros casos, el proyecto debe prever al menos dimensional y estructuralmente la instalación de un ascensor accesible.\n\n[2] También es obligatorio un ascensor accesible o una rampa accesible en edificios de otros usos cuando hay que salvar más de dos plantas desde alguna entrada principal accesible hasta alguna planta que no sea de ocupación nula, o cuando la superficie útil total del edificio, excluyendo las de ocupación nula, supera los 200 m2. Además, en las plantas que tengan zonas de uso público con más de 100 m2 de superficie útil o elementos accesibles, como plazas de aparcamiento accesibles, deben instalarse ascensor accesibles o rampas accesibles.",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "DB-SUA · SUA 9 · p. 31",
+     "doc": "DB-SUA",
+     "section": "SUA 9",
+     "text": "ardines, piscinas, zonas deportivas, etc. 1.1.2 Accesibilidad entre plantas del edificio Los edificios de uso Residencial Vivienda en los que haya que salvar más de dos plantas desde alguna entrada principal accesible al edificio hasta alguna vivienda o zona comunitaria, o con más de 12 viviendas en plantas sin entrada principal accesible al edificio, dispondrán de ascensor accesible o rampa accesible (conforme al apartado 4 del SUA 1) que comunique las plantas que no sean de ocupación nula (ver definición en el anejo SI A del DB SI) con las de entrada accesible al edificio. En el resto de los casos, el proyecto debe prever, al menos dimensional y estructuralmente, la instalación de un ascensor accesible que comunique dichas plantas. Las plantas con viviendas accesibles para usuarios de silla de ruedas dispondrán de ascensor accesible o de rampa accesible que las comunique con las plantas con entrada accesible al edificio y con las que tengan elementos asociados a dichas viviendas o zonas comunitarias, tales como trastero o plaza de aparcamiento de la vivienda accesible, sala de comu"
+    },
+    {
+     "n": 2,
+     "cite": "DB-SUA · SUA 9 · p. 31",
+     "doc": "DB-SUA",
+     "section": "SUA 9",
+     "text": "s con entrada accesible al edificio y con las que tengan elementos asociados a dichas viviendas o zonas comunitarias, tales como trastero o plaza de aparcamiento de la vivienda accesible, sala de comunidad, tendedero, etc. Los edificios de otros usos en los que haya que salvar más de dos plantas desde alguna entrada principal accesible al edificio hasta alguna planta que no sea de ocupación nula, o cuando en total existan más de 200 m2 de superficie útil (ver definición en el anejo SI A del DB SI) excluida la superficie de zonas de ocupación nula en plantas sin entrada accesible al edificio, dispondrán de ascensor accesible o rampa accesible que comunique las plantas que no sean de ocupación nula con las de entrada accesible al edificio. Las plantas que tengan zonas de uso público con más de 100 m2 de superficie útil o elementos accesibles, tales como plazas de aparcamiento accesibles, alojamientos accesibles, plazas reservadas, etc., dispondrán de ascensor accesible o rampa accesible que las comunique con las de entrada accesible al edificio. 1.1.3 Accesibilidad en las plantas del e"
+    }
+   ],
+   "retrieved": [
+    "DB-SUA · SUA 9 · p. 31",
+    "DB-SUA · SUA 9 · p. 31",
+    "DB-SUA · SUA 9 · p. 31",
+    "DB-SUA · Anejo A · p. 35",
+    "DB-SI · SI 3 · 4.2 Cálculo · p. 26",
+    "DB-SUA · SUA 9 · p. 31"
+   ],
+   "s_retrieval": 2.26,
+   "s_llm": 165.9,
+   "model": "qwen2.5:7b",
+   "id": 14,
+   "gold": {
+    "doc": "DB-SUA",
+    "section": "SUA 9",
+    "answer_key": "ascensor accesible"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Qué porcentaje mínimo de la demanda de agua caliente sanitaria debe cubrirse con renovables si la demanda es baja?",
+   "answer": "[3] [4] Según los fragmentos [3] y [4], si la demanda de agua caliente sanitaria (ACS) es inferior a 5000 l/d, la contribución mínima de energía procedente de fuentes renovables puede reducirse al 60%.",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 3,
+     "cite": "DB-HE · HE 4 · p. 28",
+     "doc": "DB-HE",
+     "section": "HE 4",
+     "text": " cubiertas existentes en las que se renueve la instalación de generación térmica o piscinas descubiertas existentes que pasen a ser cubiertas. Caracterización de la exigencia Los edificios satisfarán sus necesidades de ACS y de calentamiento de agua para la climatización de piscina cubierta empleando en gran medida energía procedente de fuentes renovables o procesos de cogeneración renovables; bien generada en el propio edificio o bien a través de la conexión a un sistema urbano de calefacción. Cuantificación de la exigencia 3.1 Contribución renovable mínima para ACS y/o climatización de piscina La contribución mínima de energía procedente de fuentes renovables cubrirá al menos el 70% de la demanda energética anual para ACS y para climatización de piscina, obtenida a partir de los valores mensuales, e incluyendo las pérdidas térmicas por distribución, acumulación y recirculación. Esta contribución mínima podrá reducirse al 60% cuando la demanda de ACS sea inferior a 5000 l/d. Se considerará únicamente la aportación renovable de la energía con origen in situ o en las proximidades del "
+    },
+    {
+     "n": 4,
+     "cite": "DB-HE · HE 4 · p. 28",
+     "doc": "DB-HE",
+     "section": "HE 4",
+     "text": "ntribución mínima podrá reducirse al 60% cuando la demanda de ACS sea inferior a 5000 l/d. Se considerará únicamente la aportación renovable de la energía con origen in situ o en las proximidades del edificio, o procedente de biomasa sólida. En el caso de ampliaciones e intervenciones en edificios existentes, contemplados en el punto 1 c) del ámbito de aplicación, la contribución renovable mínima se establece sobre el incremento de la demanda de ACS respecto a la demanda inicial. Las fuentes renovables que satisfagan la contribución renovable mínima de ACS y/o climatización de piscina, pueden estar integradas en la propia generación térmica del edificio o ser accesibles a través de la conexión a un sistema urbano de calefacción. Las bombas de calor destinadas a la producción de ACS y/o climatización de piscina, para poder considerar su contribución renovable a efectos de esta sección, deberán disponer de un valor de rendimiento medio estacional (SCOPdhw) igual o superior a 2,5 cuando sean accionadas eléctricamente e igual o superior a 1,15 cuando sean accionadas mediante energía térm"
+    }
+   ],
+   "retrieved": [
+    "DB-HE · HE 4 · p. 28",
+    "DB-HE · Introducción · 15.5 Exigencia básica HE 4: Contribución mínima de energía renovable para cubrir la demanda de · p. 4",
+    "DB-HE · HE 4 · p. 28",
+    "DB-HE · HE 4 · p. 28",
+    "DB-HE · HE 4 · p. 28",
+    "DB-HE · Introducción · p. 1"
+   ],
+   "s_retrieval": 2.24,
+   "s_llm": 94.2,
+   "model": "qwen2.5:7b",
+   "id": 15,
+   "gold": {
+    "doc": "DB-HE",
+    "section": "HE 4",
+    "answer_key": "60%"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿A partir de qué superficie construida hay que generar electricidad renovable en un edificio nuevo?",
+   "answer": "[1] A partir de una superficie construida superior a 1.000 m2, en edificios de nueva construcción, se requiere la generación de energía eléctrica procedente de fuentes renovables para uso propio o suministro a la red.",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "DB-HE · HE 5 · p. 31",
+     "doc": "DB-HE",
+     "section": "HE 5",
+     "text": "Sección HE 5 Generación mínima de energía eléctrica procedente de fuentes renovables Ámbito de aplicación Esta sección es de aplicación en los siguientes casos: a) edificios de nueva construcción cuando superen los 1.000 m2 construidos b) ampliaciones de edificios existentes cuando se incremente la superficie construida en más de 1.000 m2 c) edificios existentes que se reformen íntegramente, o en los que se produzca un cambio de uso característico del mismo, cuando se superen los 1.000 m2 de superficie construida; Se considerará que la superficie construida incluye la superficie de las zonas destinadas a aparcamiento en el interior del edificio y excluye las zonas exteriores comunes. Caracterización de la exigencia Los edificios dispondrán de sistemas de generación de energía eléctrica procedente de fuentes renovables para uso propio o suministro a la red. Cuantificación de la exigencia La potencia a instalar mínima Pmin será la menor de las resultantes de estas dos expresiones: P1 = Fpr;el · S P2=0,1 ·(0,5·Sc - Soc) donde, Pmin potencia a instalar [kW]; Fpr;el factor de producción e"
+    }
+   ],
+   "retrieved": [
+    "DB-HE · HE 5 · p. 31",
+    "DB-SI · SI 1 · p. 10",
+    "DB-HE · HE 4 · p. 28",
+    "DB-HE · Introducción · 15.5 Exigencia básica HE 4: Contribución mínima de energía renovable para cubrir la demanda de · p. 4",
+    "DB-HE · HE 4 · p. 28",
+    "DB-SI · SI 1 · p. 10"
+   ],
+   "s_retrieval": 2.26,
+   "s_llm": 122.1,
+   "model": "qwen2.5:7b",
+   "id": 16,
+   "gold": {
+    "doc": "DB-HE",
+    "section": "HE 5",
+    "answer_key": "1.000 m2"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Cuántas estaciones de recarga de vehículo eléctrico hay que instalar por plaza de aparcamiento?",
+   "answer": "No lo encuentro en los documentos indexados.",
+   "not_found": true,
+   "citations": [],
+   "retrieved": [
+    "DB-HE · HE 6 · p. 33",
+    "DB-HE · Anejo A · p. 36",
+    "REBT · ITC-BT-52 · 5 REQUISITOS GENERALES DE LA INSTALACIÓN · p. 281",
+    "DB-HE · HE 6 · p. 33",
+    "REBT · ITC-BT-52 · 3.2 Instalación en aparcamientos o estacionamientos colectivos interiores o adscritos a · p. 279",
+    "DB-SUA · Anejo A · p. 35"
+   ],
+   "s_retrieval": 2.27,
+   "s_llm": 97.1,
+   "model": "qwen2.5:7b",
+   "id": 17,
+   "gold": {
+    "doc": "DB-HE",
+    "section": "HE 6",
+    "answer_key": "40 plazas"
+   },
+   "correct_figure": false,
+   "cites_gold": false
+  },
+  {
+   "q": "¿Qué indicador limita la eficiencia energética de la instalación de iluminación?",
+   "answer": "[1] El indicador que limita la eficiencia energética de la instalación de iluminación es el Valor de Eficiencia Energética de la Instalación (VEEI), que no puede superar el valor límite (VEEIlim) establecido en la tabla 3.1-HE3, según las condiciones de uso del recinto.",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "DB-HE · HE 3 · p. 23",
+     "doc": "DB-HE",
+     "section": "HE 3",
+     "text": "as zonas que reúnan unas determinadas condiciones. HE 3. Condiciones de las instalaciones de iluminación Cuantificación de la exigencia 3.1 Eficiencia energética de la instalación de iluminación El valor de eficiencia energética de la instalación (VEEI) de la instalación de iluminación no superará el valor límite (VEEIlim) establecido en la tabla 3.1-HE3: Tabla 3.1 - HE3 Valor límite de eficiencia energética de la instalación (VEEIlim) Uso del recinto VEEI límite Administrativo en general 3,0 Andenes de estaciones de transporte 3,0 Pabellones de exposición o ferias 3,0 Salas de diagnóstico (1) 3,5 Aulas y laboratorios (2) 3,5 Habitaciones de hospital (3) 4,0 Recintos interiores no descritos en este listado 4,0 Zonas comunes (4) 4,0 Almacenes, archivos, salas técnicas y cocinas 4,0 Aparcamientos 4,0 Espacios deportivos (5) 4,0 Estaciones de transporte (6) 5,0 Supermercados, hipermercados y grandes almacenes 5,0 Bibliotecas, museos y galerías de arte 5,0 Zonas comunes en edificios no residenciales 6,0 Centros comerciales (excluidas tiendas) (7) 6,0 Hostelería y restauración (8) 8,0 Rel"
+    }
+   ],
+   "retrieved": [
+    "DB-HE · HE 3 · p. 23",
+    "DB-HE · HE 3 · p. 23",
+    "DB-HE · HE 3 · p. 23",
+    "DB-HE · HE 3 · p. 23",
+    "DB-HE · Anejo A · 2 Punto de recarga tipo SAVE (Sistema de alimentación específico del vehículo eléctrico). · p. 39",
+    "DB-HE · HE 3 · p. 23"
+   ],
+   "s_retrieval": 2.21,
+   "s_llm": 130.1,
+   "model": "qwen2.5:7b",
+   "id": 18,
+   "gold": {
+    "doc": "DB-HE",
+    "section": "HE 3",
+    "answer_key": "VEEI"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Hasta qué tensión se considera muy baja tensión en corriente alterna?",
+   "answer": "[1] En corriente alterna, la tensión asignada no superior a 50V se considera muy baja tensión. No lo encuentro en los documentos indexados.",
+   "not_found": true,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "REBT · Artículo 4 · 1 A efectos de aplicación de las prescripciones del presente Reglamento, las · p. 9",
+     "doc": "REBT",
+     "section": "Artículo 4",
+     "text": "1. A efectos de aplicación de las prescripciones del presente Reglamento, las instalaciones eléctricas de baja tensión se clasifican, según las tensiones nominales que se les asignen, en la forma siguiente: Corriente alterna (Valor eficaz) Corriente continua (Valor medio aritmético) Muy baja tensión. Un ≤ 50V Un ≤ 75V Tensión usual. 50 < Un ≤ 500V 75 < Un ≤ 750V Tensión especial. 500 < Un ≤ 1000V 750 < Un ≤ 1500V"
+    }
+   ],
+   "retrieved": [
+    "REBT · Artículo 4 · 1 A efectos de aplicación de las prescripciones del presente Reglamento, las · p. 9",
+    "REBT · ITC-BT-38 · 2.1.5 Empleo de muy baja tensión de seguridad · p. 227",
+    "REBT · ITC-BT-34 · 2.1 Alimentación · p. 219",
+    "REBT · ITC-BT-52 · 5.1 Alimentación. La tensión nominal de las instalaciones eléctricas para la recarga de · p. 283",
+    "REBT · Artículo 4 · 2 Las tensiones nominales usualmente utilizadas en las distribuciones de corriente · p. 9",
+    "REBT · ITC-BT-52 · 2 Punto de recarga tipo SAVE (Sistema de alimentación específico del vehículo · p. 267"
+   ],
+   "s_retrieval": 2.21,
+   "s_llm": 76.7,
+   "model": "qwen2.5:7b",
+   "id": 19,
+   "gold": {
+    "doc": "REBT",
+    "section": "ITC-BT-01",
+    "answer_key": "50 V"
+   },
+   "correct_figure": false,
+   "cites_gold": false
+  },
+  {
+   "q": "¿Cuál es la potencia máxima permisible por circuito en las tablas de circuitos de una vivienda?",
+   "answer": "[2] La potencia máxima permisible por circuito será de 5.750 W.\n\n[3] No lo encuentro en los documentos indexados.",
+   "not_found": true,
+   "citations": [
+    {
+     "n": 2,
+     "cite": "REBT · ITC-BT-52 · 3.1 Instalación en aparcamientos de viviendas unifamiliares. En las viviendas · p. 279",
+     "doc": "REBT",
+     "section": "ITC-BT-52",
+     "text": "unifamiliar, en cuyo caso el circuito y sus protecciones se dimensionarán acorde con la potencia prevista. Tabla 1. Potencias instaladas normalizadas en un circuito de recarga para una vivienda unifamiliar Unominal Interruptor automático de protección en el origen del circuito Potencia instalada Estaciones de recarga por circuito 230 V 10 A 2.300 W 16 A 3.680 W 20 A 4.600 W 32 A 7.360 W 40 A 9.200 W 230/400 V 16 A 11.085 W de 1 a 3 20 A 13.856 W de 1 a 4 32 A 22.170 W de 1 a 6 40 A 27.713 W de 1 a 8 Para evitar desequilibrios en la red eléctrica los circuitos C13 monofásicos no dispondrán de una potencia instalada superior a los 9.200 W. Cuando en un circuito trifásico se conecten estaciones monofásicas, éstas se repartirán de la forma más equilibrada posible entre las tres fases. El número máximo de estaciones de recarga de la tabla 1 por cada circuito de recarga trifásico se ha calculado suponiendo estaciones monofásicas de una potencia unitaria de 3.680 W. El proyectista podrá ampliar o reducir el número máximo si justifica una potencia instalada por estación de recarga inferior o"
+    },
+    {
+     "n": 3,
+     "cite": "REBT · ITC-BT-52 · 3.1 Instalación en aparcamientos de viviendas unifamiliares. En las viviendas · p. 279",
+     "doc": "REBT",
+     "section": "ITC-BT-52",
+     "text": "3.1 Instalación en aparcamientos de viviendas unifamiliares. En las viviendas unifamiliares nuevas que dispongan de aparcamiento o zona prevista para poder albergar un vehículo eléctrico se instalará un circuito exclusivo para la recarga de vehículo eléctrico. Este circuito se denominará circuito C13, según la nomenclatura de la (ITC) BT-25 y seguirá el esquema de instalación 4a. Las instalaciones existentes en las que se desee instalar una estación de recarga se ajustarán también a lo establecido en este apartado. La alimentación de este circuito podrá ser monofásica o trifásica y la potencia instalada responderá generalmente a uno de los escalones de la tabla 1, según prevea el proyectista de la instalación. No obstante, el proyectista podrá justificar una potencia mayor, en función de la previsión de potencia por estación de recarga o del número de plazas construidas para la vivienda unifamiliar, en cuyo caso el circuito y sus protecciones se dimensionarán acorde con la potencia prevista. Tabla 1. Potencias instaladas normalizadas en un circuito de recarga para una vivienda unifam"
+    }
+   ],
+   "retrieved": [
+    "REBT · ITC-BT-25 · 2.3.2 Electrificación elevada · p. 167",
+    "REBT · ITC-BT-52 · 3.1 Instalación en aparcamientos de viviendas unifamiliares. En las viviendas · p. 279",
+    "REBT · ITC-BT-52 · 3.1 Instalación en aparcamientos de viviendas unifamiliares. En las viviendas · p. 279",
+    "REBT · ITC-BT-25 · 2.3.2 Electrificación elevada · p. 167",
+    "REBT · ITC-BT-10 · 2 GRADO DE ELECTRIFICACIÓN Y PREVISIÓN DE LA POTENCIA EN LAS · p. 98",
+    "REBT · ITC-BT-10 · 2.2 Previsión de la potencia · p. 98"
+   ],
+   "s_retrieval": 2.28,
+   "s_llm": 123.5,
+   "model": "qwen2.5:7b",
+   "id": 20,
+   "gold": {
+    "doc": "REBT",
+    "section": "ITC-BT-25",
+    "answer_key": "5.750 W"
+   },
+   "correct_figure": true,
+   "cites_gold": false
+  },
+  {
+   "q": "¿Qué caída de tensión máxima se admite en un circuito interior de vivienda?",
+   "answer": "[2] La caída de tensión máxima admitida en un circuito interior de vivienda es del 3 %.",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 2,
+     "cite": "REBT · ITC-BT-19 · 2.2.2 Sección de los conductores. Caídas de tensión · p. 128",
+     "doc": "REBT",
+     "section": "ITC-BT-19",
+     "text": "2.2.2 Sección de los conductores. Caídas de tensión La sección de los conductores a utilizar se determinará de forma que la caída de tensión entre el origen de la instalación interior y cualquier punto de utilización sea, salvo lo prescrito en las Instrucciones particulares, menor del 3 % de la tensión nominal para cualquier circuito interior de viviendas, y para otras instalaciones interiores o receptoras, del 3 % para alumbrado y del 5 % para los demás usos. Esta caída de tensión se calculará considerando alimentados todos los aparatos de utilización susceptibles de funcionar simultáneamente. El valor de la caída de tensión podrá compensarse entre la de la instalación interior y la de las derivaciones individuales, de forma que la caída de tensión total sea inferior a la suma de los valores límites especificados para ambas, según el tipo de esquema utilizado. Para instalaciones industriales que se alimenten directamente en alta tensión mediante un transformador de distribución propio, se considerará que la instalación interior de baja tensión tiene su origen en la salida del transf"
+    }
+   ],
+   "retrieved": [
+    "REBT · ITC-BT-25 · 2.3.2 Electrificación elevada · p. 167",
+    "REBT · ITC-BT-19 · 2.2.2 Sección de los conductores. Caídas de tensión · p. 128",
+    "REBT · ITC-BT-25 · 2.3.2 Electrificación elevada · p. 167",
+    "REBT · ITC-BT-14 · 3 CABLES · p. 110",
+    "REBT · ITC-BT-40 · 5 CABLES DE CONEXIÓN · p. 234",
+    "REBT · ITC-BT-25 · 2.3.2 Electrificación elevada · p. 167"
+   ],
+   "s_retrieval": 2.2,
+   "s_llm": 117.5,
+   "model": "qwen2.5:7b",
+   "id": 21,
+   "gold": {
+    "doc": "REBT",
+    "section": "ITC-BT-19",
+    "answer_key": "3 %"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Cada cuánto tiempo hay que hacer inspecciones periódicas de las instalaciones de baja tensión que necesitaron inspección inicial?",
+   "answer": "[1] Las instalaciones eléctricas en baja tensión que necesitaron inspección inicial serán objeto de inspecciones periódicas cada 5 años.\n\nNo lo encuentro en los documentos indexados.",
+   "not_found": true,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "REBT · ITC-BT-05 · 4.2 Inspecciones periódicas. · p. 56",
+     "doc": "REBT",
+     "section": "ITC-BT-05",
+     "text": "4.2 Inspecciones periódicas. Serán objeto de inspecciones periódicas, cada 5 años, todas las instalaciones eléctricas en baja tensión que precisaron inspección inicial, según el punto 4.1 anterior, y cada 10 años, las comunes de edificios de viviendas de potencia total instalada superior a 100 kW."
+    }
+   ],
+   "retrieved": [
+    "REBT · ITC-BT-05 · 4.2 Inspecciones periódicas. · p. 56",
+    "REBT · ITC-BT-05 · 4 INSPECCIONES. · p. 55",
+    "REBT · Artículo 21 · p. 15",
+    "REBT · ITC-BT-05 · 4.1 Inspecciones iniciales. · p. 55",
+    "REBT · ITC-BT-38 · 2.4.2 Después de su puesta en servicio · p. 228",
+    "REBT · Artículo 2 · 2 El presente Reglamento se aplicará: · p. 9"
+   ],
+   "s_retrieval": 2.31,
+   "s_llm": 91.5,
+   "model": "qwen2.5:7b",
+   "id": 22,
+   "gold": {
+    "doc": "REBT",
+    "section": "ITC-BT-05",
+    "answer_key": "5 años"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Cómo se delimita el volumen 0 de un baño con difusor de ducha fijo?",
+   "answer": "[1] El volumen 0 está limitado por el suelo y por un plano horizontal situado a 0,05 m por encima del suelo. En este caso, si el difusor de la ducha es fijo, el volumen 0 está limitado por el plano generatriz vertical situado a un radio de 0,6 m alrededor del difusor.",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "REBT · ITC-BT-27 · 2.1.1 Volumen 0 · p. 175",
+     "doc": "REBT",
+     "section": "ITC-BT-27",
+     "text": "2.1.1 Volumen 0 Comprende el interior de la bañera o ducha. En un lugar que contenga una ducha sin plato, el volumen 0 está delimitado por el suelo y por un plano horizontal situado a 0,05 m por encima del suelo. En este caso: a) Si el difusor de la ducha puede desplazarse durante su uso, el volumen 0 está limitado por el plano generatriz vertical situado a un radio de 1,2 m alrededor de la toma de agua de la pared o el plano vertical que encierra el área prevista para ser ocupada por la persona que se ducha; o b) Si el difusor de la ducha es fijo, el volumen 0 está limitado por el plano generatriz vertical situado a un radio de 0,6 m alrededor del difusor."
+    }
+   ],
+   "retrieved": [
+    "REBT · ITC-BT-27 · 2.1.1 Volumen 0 · p. 175",
+    "REBT · ITC-BT-27 · 2.1.2 Volumen 1 · p. 175",
+    "REBT · ITC-BT-27 · 2.3 Elección e instalación de los materiales eléctricos · p. 176",
+    "REBT · ITC-BT-27 · 2.3 Elección e instalación de los materiales eléctricos · p. 176",
+    "REBT · ITC-BT-27 · 2.1 Clasificación de los volúmenes · p. 174",
+    "REBT · ITC-BT-27 · 4 FIGURAS DE LA CLASIFICACIÓN DE LOS VOLÚMENES · p. 177"
+   ],
+   "s_retrieval": 2.25,
+   "s_llm": 120.3,
+   "model": "qwen2.5:7b",
+   "id": 23,
+   "gold": {
+    "doc": "REBT",
+    "section": "ITC-BT-27",
+    "answer_key": "0,6 m"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿A partir de qué potencia necesita proyecto una instalación eléctrica industrial?",
+   "answer": "[1] A partir de una potencia instalada superior a 100 kW, una instalación industrial necesita proyecto [1].",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "REBT · ITC-BT-04 · 3.1 Para su ejecución, precisan elaboración de proyecto las nuevas instalaciones · p. 52",
+     "doc": "REBT",
+     "section": "ITC-BT-04",
+     "text": ", excepto aparcamientos o estacionamientos. Sin límite. m Las de quirófanos y salas de intervención. Sin límite. n Las correspondientes a piscinas y fuentes. P > 5 kW. z Las correspondientes a las infraestructuras para la recarga del vehículo eléctrico. P > 50 kW. Instalaciones de recarga situadas en el exterior. P > 10 kW. Todas las instalaciones que incluyan estaciones de recarga previstas para el modo de carga 4. Sin límite. o Todas aquellas que, no estando comprendidas en los grupos anteriores, determine el Ministerio con competencias en materia de seguridad industrial, mediante la oportuna disposición. Según corresponda. [P = Potencia prevista en la instalación, teniendo en cuenta lo estipulado en la (ITC) BT-10]. No será necesaria la elaboración de proyecto para las instalaciones de recarga que se ejecuten en los grupos de instalación g) y h) existentes en edificios de viviendas, siempre que las nuevas instalaciones no estén incluidas en el grupo z)."
+    }
+   ],
+   "retrieved": [
+    "REBT · ITC-BT-04 · 3.1 Para su ejecución, precisan elaboración de proyecto las nuevas instalaciones · p. 52",
+    "REBT · ITC-BT-10 · 2.2 Previsión de la potencia · p. 98",
+    "REBT · ITC-BT-05 · 4.1 Inspecciones iniciales. · p. 55",
+    "REBT · ITC-BT-04 · 3.2 Asimismo, requerirán elaboración de proyecto las ampliaciones y modificaciones de · p. 53",
+    "REBT · ITC-BT-04 · 2.1 Proyecto · p. 51",
+    "REBT · ITC-BT-04 · 3.1 Para su ejecución, precisan elaboración de proyecto las nuevas instalaciones · p. 52"
+   ],
+   "s_retrieval": 2.19,
+   "s_llm": 109.8,
+   "model": "qwen2.5:7b",
+   "id": 24,
+   "gold": {
+    "doc": "REBT",
+    "section": "ITC-BT-04",
+    "answer_key": "20 kW"
+   },
+   "correct_figure": false,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Qué sensibilidad debe tener un interruptor diferencial para considerarse de alta sensibilidad?",
+   "answer": "[1] Los dispositivos alimentados a través de un transformador de aislamiento no deben protegerse con diferenciales en el primario ni en el secundario del transformador. Los dispositivos de protección diferencial de alta sensibilidad (≤ 30 mA) y de clase A se emplearán para la protección individual de aquellos equipos que no estén alimentados a través de un transformador de aislamiento.\n\nNo lo encuentro en los documentos indexados.",
+   "not_found": true,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "REBT · ITC-BT-38 · 2.1.4 Protección diferencial y contra sobreintensidades · p. 227",
+     "doc": "REBT",
+     "section": "ITC-BT-38",
+     "text": "2.1.4 Protección diferencial y contra sobreintensidades Se emplearán dispositivos de protección diferencial de alta sensibilidad (≤ 30 mA) y de clase A, para la protección individual de aquellos equipos que no estén alimentados a través de un transformador de aislamiento, aunque el empleo de los mismos no exime de la necesidad de puesta a tierra y equipotencialidad. Se dispondrán las correspondientes protecciones contra sobreintensidades. Los dispositivos alimentados a través de un transformador de aislamiento no deben protegerse con diferenciales en el primario ni en el secundario del transformador."
+    }
+   ],
+   "retrieved": [
+    "REBT · ITC-BT-38 · 2.1.4 Protección diferencial y contra sobreintensidades · p. 227",
+    "REBT · ITC-BT-01 · p. 17",
+    "REBT · ITC-BT-17 · 1.3 Características principales de los dispositivos de protección · p. 119",
+    "REBT · ITC-BT-17 · 1.2 Composición y características de los cuadros · p. 118",
+    "REBT · ITC-BT-25 · 2.3.2 Electrificación elevada · p. 167",
+    "REBT · ITC-BT-19 · 2.9 Resistencia de aislamiento y rigidez dieléctrica · p. 132"
+   ],
+   "s_retrieval": 2.24,
+   "s_llm": 116.0,
+   "model": "qwen2.5:7b",
+   "id": 25,
+   "gold": {
+    "doc": "REBT",
+    "section": "ITC-BT-01",
+    "answer_key": "30 mA"
+   },
+   "correct_figure": true,
+   "cites_gold": false
+  },
+  {
+   "q": "¿Qué esquema de instalación sigue el circuito de recarga de vehículo eléctrico en una vivienda unifamiliar?",
+   "answer": "[1] En las viviendas unifamiliares nuevas que dispongan de aparcamiento o zona prevista para poder albergar un vehículo eléctrico se instalará un circuito exclusivo para la recarga de vehículo eléctrico. Este circuito se denominará circuito C13, según la nomenclatura de la (ITC) BT-25 y seguirá el esquema de instalación 4a.",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "REBT · ITC-BT-52 · 3.1 Instalación en aparcamientos de viviendas unifamiliares. En las viviendas · p. 279",
+     "doc": "REBT",
+     "section": "ITC-BT-52",
+     "text": "3.1 Instalación en aparcamientos de viviendas unifamiliares. En las viviendas unifamiliares nuevas que dispongan de aparcamiento o zona prevista para poder albergar un vehículo eléctrico se instalará un circuito exclusivo para la recarga de vehículo eléctrico. Este circuito se denominará circuito C13, según la nomenclatura de la (ITC) BT-25 y seguirá el esquema de instalación 4a. Las instalaciones existentes en las que se desee instalar una estación de recarga se ajustarán también a lo establecido en este apartado. La alimentación de este circuito podrá ser monofásica o trifásica y la potencia instalada responderá generalmente a uno de los escalones de la tabla 1, según prevea el proyectista de la instalación. No obstante, el proyectista podrá justificar una potencia mayor, en función de la previsión de potencia por estación de recarga o del número de plazas construidas para la vivienda unifamiliar, en cuyo caso el circuito y sus protecciones se dimensionarán acorde con la potencia prevista. Tabla 1. Potencias instaladas normalizadas en un circuito de recarga para una vivienda unifam"
+    }
+   ],
+   "retrieved": [
+    "REBT · ITC-BT-52 · 3.1 Instalación en aparcamientos de viviendas unifamiliares. En las viviendas · p. 279",
+    "REBT · ITC-BT-52 · 4 Esquema con circuito o circuitos adicionales para la recarga del vehículo eléctrico. · p. 272",
+    "REBT · ITC-BT-52 · 3.1 Instalación en aparcamientos de viviendas unifamiliares. En las viviendas · p. 279",
+    "REBT · ITC-BT-52 · 4 Esquema con circuito o circuitos adicionales para la recarga del vehículo eléctrico. · p. 272",
+    "REBT · ITC-BT-52 · 4 Esquema con circuito o circuitos adicionales para la recarga del vehículo eléctrico. · p. 272",
+    "REBT · ITC-BT-52 · 2 TÉRMINOS Y DEFINICIONES · p. 267"
+   ],
+   "s_retrieval": 2.28,
+   "s_llm": 136.1,
+   "model": "qwen2.5:7b",
+   "id": 26,
+   "gold": {
+    "doc": "REBT",
+    "section": "ITC-BT-52",
+    "answer_key": "4a"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Qué sección mínima deben tener los conductores de una derivación individual y su hilo de mando?",
+   "answer": "[1] La sección mínima para los cables polares, neutro y protección en una derivación individual será de 6 mm². El hilo de mando, que será de color rojo, tendrá una sección de 1,5 mm².\n\n[2] No lo encuentro en los documentos indexados.",
+   "not_found": true,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "REBT · ITC-BT-15 · 3 CABLES · p. 112",
+     "doc": "REBT",
+     "section": "ITC-BT-15",
+     "text": "según la tensión asignada del cable), cumplen con esta prescripción. Los elementos de conducción de cables con características equivalentes a los clasificados como «no propagadores de la llama» de acuerdo con las normas UNE-EN 50085-1 y UNE-EN 50086-1, cumplen con esta prescripción. La sección mínima será de 6 mm2 para los cables polares, neutro y protección y de 1,5 mm2 para el hilo de mando, que será de color rojo. Para el cálculo de la sección de los conductores se tendrá en cuenta lo siguiente: a) La demanda prevista por cada usuario, que será como mínimo la fijada por la RBT-010 y cuya intensidad estará controlada por los dispositivos privados de mando y protección. A efectos de las intensidades admisibles por cada sección, se tendrá en cuenta lo que se indica en la ITC-BT-19 y para el caso de cables aislados en el interior de tubos enterrados, lo dispuesto en la ITC-BT-07. b) La caída de tensión máxima admisible será: – Para el caso de contadores concentrados en más de un lugar: 0,5%. – Para el caso de contadores totalmente concentrados: 1%. – Para el caso de derivaciones indiv"
+    },
+    {
+     "n": 2,
+     "cite": "REBT · ITC-BT-15 · 3 CABLES · p. 112",
+     "doc": "REBT",
+     "section": "ITC-BT-15",
+     "text": "3. CABLES El número de conductores vendrá fijado por el número de fases necesarias para la utilización de los receptores de la derivación correspondiente y según su potencia, llevando cada línea su correspondiente conductor neutro así como el conductor de protección. En el caso de suministros individuales el punto de conexión del conductor de protección, se dejará a criterio del proyectista de la instalación. Además, cada derivación individual incluirá el hilo de mando para posibilitar la aplicación de diferentes tarifas. No se admitirá el empleo de conductor neutro común ni de conductor de protección común para distintos suministros. A efecto de la consideración del número de fases que compongan la derivación individual, se tendrá en cuenta la potencia que en monofásico está obligada a suministrar la empresa distribuidora si el usuario así lo desea. Los cables no presentarán empalmes y su sección será uniforme, exceptuándose en este caso las conexiones realizadas en la ubicación de los contadores y en los dispositivos de protección. Los conductores a utilizar serán de cobre o alumin"
+    }
+   ],
+   "retrieved": [
+    "REBT · ITC-BT-15 · 3 CABLES · p. 112",
+    "REBT · ITC-BT-15 · 3 CABLES · p. 112",
+    "REBT · ITC-BT-15 · 1 DEFINICIÓN · p. 111",
+    "REBT · ITC-BT-16 · 1 GENERALIDADES · p. 113",
+    "REBT · ITC-BT-06 · 3.4 Sección mínima del conductor neutro · p. 65",
+    "REBT · ITC-BT-07 · 1 CABLES · p. 73"
+   ],
+   "s_retrieval": 2.25,
+   "s_llm": 112.7,
+   "model": "qwen2.5:7b",
+   "id": 27,
+   "gold": {
+    "doc": "REBT",
+    "section": "ITC-BT-15",
+    "answer_key": "6 mm2"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Cuál es el objeto del Reglamento electrotécnico para baja tensión?",
+   "answer": "[4] El objeto del Reglamento Electrotécnico para Baja Tensión es establecer las condiciones técnicas y garantías que deben reunir las instalaciones eléctricas conectadas a una fuente de suministro en los límites de baja tensión, con la finalidad de preservar la seguridad de las personas y los bienes, asegurar el normal funcionamiento de dichas instalaciones y prevenir las perturbaciones en otras instalaciones y servicios, así como contribuir a la fiabilidad técnica y a la eficiencia económica de las instalaciones.",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 4,
+     "cite": "REBT · Artículo 1 · p. 8",
+     "doc": "REBT",
+     "section": "Artículo 1",
+     "text": "Artículo 1. Objeto. El presente Reglamento tiene por objeto establecer las condiciones técnicas y garantías que deben reunir las instalaciones eléctricas conectadas a una fuente de suministro en los límites de baja tensión, con la finalidad de: a) Preservar la seguridad de las personas y los bienes. b) Asegurar el normal funcionamiento de dichas instalaciones y prevenir las perturbaciones en otras instalaciones y servicios. c) Contribuir a la fiabilidad técnica y a la eficiencia económica de las instalaciones."
+    }
+   ],
+   "retrieved": [
+    "REBT · ITC-BT-04 · 1 OBJETO · p. 51",
+    "REBT · ITC-BT-47 · 1 OBJETO Y CAMPO DE APLICACIÓN · p. 257",
+    "REBT · ITC-BT-05 · 1 OBJETO. · p. 55",
+    "REBT · Artículo 1 · p. 8",
+    "REBT · ITC-BT-45 · 1 OBJETO Y CAMPO DE APLICACIÓN · p. 252",
+    "REBT · ITC-BT-48 · 1 OBJETO Y CAMPO DE APLICACIÓN · p. 260"
+   ],
+   "s_retrieval": 2.24,
+   "s_llm": 73.1,
+   "model": "qwen2.5:7b",
+   "id": 28,
+   "gold": {
+    "doc": "REBT",
+    "section": "Artículo 1",
+    "answer_key": "condiciones técnicas"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Qué tensiones de contacto límite se consideran para la protección por corte automático?",
+   "answer": "[1] La tensión límite convencional es igual a 50 V, valor eficaz en corriente alterna, en condiciones normales. En ciertas condiciones pueden especificarse valores menos elevados, como por ejemplo, 24 V para las instalaciones de alumbrado público contempladas en la ITC-BT-09, apartado 10.",
+   "not_found": false,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "REBT · ITC-BT-24 · 4.1 Protección por corte automático de la alimentación · p. 157",
+     "doc": "REBT",
+     "section": "ITC-BT-24",
+     "text": "4.1 Protección por corte automático de la alimentación El corte automático de la alimentación después de la aparición de un fallo está destinado a impedir que una tensión de contacto de valor suficiente, se mantenga durante un tiempo tal que puede dar como resultado un riesgo. Debe existir una adecuada coordinación entre el esquema de conexiones a tierra de la instalación utilizado de entre los descritos en la ITC-BT-08 y las características de los dispositivos de protección. El corte automático de la alimentación está prescrito cuando puede producirse un efecto peligroso en las personas o animales domésticos en caso de defecto, debido al valor y duración de la tensión de contacto. Se utilizará como referencia lo indicado en la norma UNE 20.572-1. La tensión límite convencional es igual a 50 V, valor eficaz en corriente alterna, en condiciones normales. En ciertas condiciones pueden especificarse valores menos elevados, como por ejemplo, 24 V para las instalaciones de alumbrado público contempladas en la ITC-BT-09, apartado 10. Se describen a continuación aquellos aspectos más signif"
+    }
+   ],
+   "retrieved": [
+    "REBT · ITC-BT-24 · 4.1 Protección por corte automático de la alimentación · p. 157",
+    "REBT · ITC-BT-33 · 4.2 Medidas de protección contra contactos indirectos · p. 217",
+    "REBT · ITC-BT-24 · 4.1.2 Esquemas TT. Características y prescripciones de los dispositivos de protección. · p. 159",
+    "REBT · ITC-BT-24 · 4.1.2 Esquemas TT. Características y prescripciones de los dispositivos de protección. · p. 159",
+    "REBT · ITC-BT-17 · 1.3 Características principales de los dispositivos de protección · p. 119",
+    "REBT · ITC-BT-52 · 6.3 Medidas de protección contra sobreintensidades. Los circuitos de recarga, hasta el · p. 287"
+   ],
+   "s_retrieval": 2.29,
+   "s_llm": 118.7,
+   "model": "qwen2.5:7b",
+   "id": 29,
+   "gold": {
+    "doc": "REBT",
+    "section": "ITC-BT-24",
+    "answer_key": "50 V"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Cuándo deben hacerse inspecciones periódicas de las instalaciones comunes de edificios de viviendas?",
+   "answer": "[1] Las inspecciones periódicas de las instalaciones comunes de edificios de viviendas deberán realizarse cada 10 años, siempre que la potencia total instalada sea superior a 100 kW.\n\nNo lo encuentro en los documentos indexados.",
+   "not_found": true,
+   "citations": [
+    {
+     "n": 1,
+     "cite": "REBT · ITC-BT-05 · 4.2 Inspecciones periódicas. · p. 56",
+     "doc": "REBT",
+     "section": "ITC-BT-05",
+     "text": "4.2 Inspecciones periódicas. Serán objeto de inspecciones periódicas, cada 5 años, todas las instalaciones eléctricas en baja tensión que precisaron inspección inicial, según el punto 4.1 anterior, y cada 10 años, las comunes de edificios de viviendas de potencia total instalada superior a 100 kW."
+    }
+   ],
+   "retrieved": [
+    "REBT · ITC-BT-05 · 4.2 Inspecciones periódicas. · p. 56",
+    "REBT · Artículo 21 · p. 15",
+    "REBT · ITC-BT-05 · 4 INSPECCIONES. · p. 55",
+    "REBT · ITC-BT-38 · 2.4.2 Después de su puesta en servicio · p. 228",
+    "REBT · ITC-BT-05 · 4.1 Inspecciones iniciales. · p. 55",
+    "REBT · Real Decreto · p. 5"
+   ],
+   "s_retrieval": 2.25,
+   "s_llm": 89.2,
+   "model": "qwen2.5:7b",
+   "id": 30,
+   "gold": {
+    "doc": "REBT",
+    "section": "ITC-BT-05",
+    "answer_key": "10 años"
+   },
+   "correct_figure": true,
+   "cites_gold": true
+  },
+  {
+   "q": "¿Qué espesor mínimo de aislamiento exige el RITE para las tuberías de calefacción?",
+   "answer": "No lo encuentro en los documentos indexados.",
+   "not_found": true,
+   "citations": [],
+   "retrieved": [
+    "REBT · ITC-BT-46 · 5 PARTICULARIDADES PARA INSTALACIONES DE CABLES CALEFACTORES EN · p. 256",
+    "REBT · ITC-BT-46 · 3.2 Instalación eléctrica · p. 255",
+    "REBT · ITC-BT-46 · 5.1 Colocación · p. 256",
+    "DB-HE · Introducción · 15.3 Exigencia básica HE 2: Condiciones de las instalaciones térmicas · p. 3",
+    "DB-SI · Anejo E · p. 73",
+    "REBT · ITC-BT-19 · 2.9 Resistencia de aislamiento y rigidez dieléctrica · p. 132"
+   ],
+   "s_retrieval": 2.26,
+   "s_llm": 107.8,
+   "model": "qwen2.5:7b",
+   "id": 101,
+   "out_of_scope": true,
+   "abstained": true
+  },
+  {
+   "q": "¿Qué resistencia característica mínima debe tener el hormigón armado según el Código Estructural?",
+   "answer": "No lo encuentro en los documentos indexados.",
+   "not_found": true,
+   "citations": [],
+   "retrieved": [
+    "DB-SI · Anejo B · p. 53",
+    "DB-SI · Anejo B · p. 53",
+    "DB-SI · Anejo B · p. 53",
+    "DB-SI · Anejo B · p. 53",
+    "DB-SI · Anejo B · p. 53",
+    "DB-SI · Anejo B · p. 53"
+   ],
+   "s_retrieval": 2.28,
+   "s_llm": 111.8,
+   "model": "qwen2.5:7b",
+   "id": 102,
+   "out_of_scope": true,
+   "abstained": true
+  },
+  {
+   "q": "¿Qué distancia mínima exige el reglamento de líneas de alta tensión entre conductores y edificios?",
+   "answer": "No lo encuentro en los documentos indexados.",
+   "not_found": true,
+   "citations": [],
+   "retrieved": [
+    "REBT · ITC-BT-06 · 3.9.2.1 Con líneas eléctricas aéreas de alta tensión. · p. 68",
+    "REBT · ITC-BT-06 · 3.9.1.3 Con líneas aéreas de telecomunicación. · p. 67",
+    "REBT · ITC-BT-06 · 3.9.2.2 Con otras líneas de baja tensión o de telecomunicación. · p. 68",
+    "REBT · ITC-BT-06 · 3.9.2.1 Con líneas eléctricas aéreas de alta tensión. · p. 68",
+    "REBT · ITC-BT-06 · 3.9.1.1 Con líneas eléctricas aéreas de alta tensión. · p. 66",
+    "REBT · ITC-BT-06 · 3.9.2.3 Con calles y carreteras. · p. 69"
+   ],
+   "s_retrieval": 2.25,
+   "s_llm": 79.2,
+   "model": "qwen2.5:7b",
+   "id": 103,
+   "out_of_scope": true,
+   "abstained": true
+  }
+ ]
+}

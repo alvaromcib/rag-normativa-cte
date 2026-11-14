@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asistente de normativa CTE y REBT en local · Álvaro Martín Coll</title>
+<style>:root {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --surface: #1a1a19;
+  --surface-2: #232321;
+  --text-1: #f0efec;
+  --text-2: #c3c2b7;
+  --text-3: #898781;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --ring: rgba(255,255,255,0.10);
+  --s1: #3987e5;  /* blue */
+  --s2: #d95926;  /* orange */
+  --s3: #199e70;  /* aqua */
+  --good: #0ca30c;
+  --warn: #fab219;
+  --crit: #d03b3b;
+  --accent: var(--s1);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--text-1); line-height: 1.5; }
+a { color: var(--accent); }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
+
+/* Hero */
+.hero { position: relative; overflow: hidden; padding: 56px 0 40px; border-bottom: 1px solid var(--grid); margin-bottom: 32px; }
+.hero::before { content: ""; position: absolute; inset: -40% -10% auto auto; width: 720px; height: 720px;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%);
+  pointer-events: none; }
+.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .55; pointer-events: none; }
+.hero .wrap { position: relative; padding-bottom: 0; }
+.eyebrow { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+h1 { font-size: clamp(32px, 5vw, 52px); line-height: 1.08; margin: 10px 0 14px; letter-spacing: -.02em; max-width: 900px; }
+.lede { font-size: 18px; color: var(--text-2); max-width: 760px; margin: 0; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.tag { font-size: 12px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--ring); color: var(--text-2); background: var(--surface); }
+
+/* KPI tiles */
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 0 0 28px; }
+.kpi { background: var(--surface); border: 1px solid var(--ring); border-radius: 14px; padding: 18px 20px; }
+.kpi .l { font-size: 13px; color: var(--text-2); }
+.kpi .v { font-size: 34px; font-weight: 650; letter-spacing: -.02em; margin-top: 4px; }
+.kpi .d { font-size: 13px; color: var(--text-3); margin-top: 2px; }
+.kpi.hero-kpi { background: linear-gradient(140deg, color-mix(in srgb, var(--accent) 22%, var(--surface)), var(--surface)); }
+.kpi.hero-kpi .v { font-size: 52px; }
+
+/* Cards */
+.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--ring); border-radius: 14px; padding: 20px; grid-column: span 12; min-width: 0; }
+.span-6 { grid-column: span 6; } .span-4 { grid-column: span 4; } .span-8 { grid-column: span 8; }
+@media (max-width: 860px) { .span-6, .span-4, .span-8 { grid-column: span 12; } }
+.card h2 { font-size: 17px; margin: 0 0 2px; }
+.card .sub { font-size: 13px; color: var(--text-3); margin: 0 0 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--text-2); margin: -4px 0 8px; }
+.legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.chip { font: inherit; font-size: 13px; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--ring);
+  background: var(--surface-2); color: var(--text-2); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* Story / method */
+.steps { counter-reset: s; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.step { background: var(--surface-2); border-radius: 12px; padding: 16px; font-size: 14px; color: var(--text-2); }
+.step b { display: block; color: var(--text-1); margin-bottom: 4px; }
+.step::before { counter-increment: s; content: counter(s, decimal-leading-zero); font-size: 12px; color: var(--accent); font-weight: 700; }
+.note { font-size: 13px; color: var(--text-3); }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--grid); }
+th { color: var(--text-3); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+td.num { font-variant-numeric: tabular-nums; text-align: right; }
+.footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--grid); display: flex; flex-wrap: wrap;
+  gap: 12px 24px; justify-content: space-between; font-size: 14px; color: var(--text-2); }
+.cta { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; padding: 10px 18px;
+  border-radius: 10px; font-weight: 600; }
+
+/* Viz */
+.viz-tick { fill: var(--text-3); font-size: 11px; font-variant-numeric: tabular-nums; }
+.viz-label { fill: var(--text-3); font-size: 12px; }
+.viz-tip { position: fixed; z-index: 10; pointer-events: none; opacity: 0; transition: opacity .1s;
+  background: #0b0b0b; border: 1px solid var(--ring); border-radius: 8px; padding: 8px 10px; font-size: 12px;
+  color: var(--text-1); box-shadow: 0 6px 24px rgba(0,0,0,.5); }
+.viz-tip i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+.viz-bar { display: grid; grid-template-columns: 120px 1fr 96px; align-items: center; gap: 10px; padding: 5px 0; font-size: 13px; }
+.viz-bar-l { color: var(--text-2); }
+.viz-bar-t { height: 14px; }
+.viz-bar-f { display: block; height: 100%; border-radius: 0 4px 4px 0; }
+.viz-bar-v { color: var(--text-1); font-variant-numeric: tabular-nums; text-align: right; }
+.cm { display: grid; grid-template-columns: auto 1fr 1fr; gap: 4px; font-size: 13px; }
+.cm div { padding: 14px; border-radius: 8px; text-align: center; background: var(--surface-2); }
+.cm .h { background: none; color: var(--text-3); padding: 6px; }
+.cm .ok { background: color-mix(in srgb, var(--good) 28%, var(--surface)); }
+.cm .bad { background: color-mix(in srgb, var(--crit) 24%, var(--surface)); }
+.cm b { display: block; font-size: 24px; }
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s, transform .6s; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* Language switch */
+.lang { position: fixed; top: 14px; right: 16px; z-index: 15; display: flex; gap: 2px; padding: 3px;
+  background: color-mix(in srgb, var(--surface) 85%, transparent); border: 1px solid var(--ring); border-radius: 999px;
+  backdrop-filter: blur(6px); font-size: 12px; font-weight: 600; letter-spacing: .04em; }
+.lang a { color: var(--text-3); text-decoration: none; padding: 4px 10px; border-radius: 999px; }
+.lang a:hover { color: var(--text-1); }
+.lang a[aria-current="page"] { background: var(--accent); color: #fff; }
+</style>
+<style>
+:root { --accent: #199e70; }
+.ask { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.chat { background: var(--surface-2); border-radius: 14px; padding: 18px 20px; border: 1px solid var(--ring); }
+.chat .q { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+.chat .a { font-size: 15.5px; color: var(--text-1); line-height: 1.6; }
+.chat .a sup { color: var(--accent); font-weight: 700; }
+.cites { display: grid; gap: 8px; margin-top: 14px; }
+.cite { background: var(--surface); border: 1px solid var(--ring); border-radius: 10px; padding: 10px 12px; font-size: 13px; color: var(--text-2); }
+.cite b { color: var(--accent); font-size: 12px; letter-spacing: .03em; display: block; margin-bottom: 4px; }
+.cite mark { background: color-mix(in srgb, var(--accent) 35%, transparent); color: var(--text-1); border-radius: 3px; padding: 0 2px; }
+.qlist { display: grid; gap: 6px; max-height: 520px; overflow-y: auto; padding-right: 4px; }
+.qi { display: grid; grid-template-columns: 22px 1fr auto; gap: 10px; align-items: center; text-align: left; font: inherit; font-size: 13.5px;
+  background: var(--surface-2); color: var(--text-2); border: 1px solid transparent; border-radius: 10px; padding: 9px 12px; cursor: pointer; }
+.qi:hover { color: var(--text-1); }
+.qi[aria-current="true"] { border-color: var(--accent); color: var(--text-1); }
+.qi .doc { font-size: 11px; color: var(--text-3); }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.o-correct { background: var(--good); } .o-unsupported { background: var(--warn); } .o-wrong { background: var(--crit); }
+.o-abstained { background: #8a8a85; } .o-abstained_ok { background: var(--s1); }
+.badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; color: #0b0b0b; margin-bottom: 10px; }
+.why { margin-top: 12px; font-size: 13.5px; color: var(--text-2); background: var(--surface); border-left: 3px solid var(--warn); padding: 8px 12px; border-radius: 0 8px 8px 0; }
+.gold { font-size: 12.5px; color: var(--text-3); margin-top: 10px; }
+.split { display: grid; grid-template-columns: 340px 1fr; gap: 16px; }
+@media (max-width: 860px) { .split { grid-template-columns: 1fr; } .qlist { max-height: 300px; } }
+.stack { display: flex; height: 34px; border-radius: 8px; overflow: hidden; margin: 6px 0 10px; }
+.stack div { display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #0b0b0b; }
+.mtab td, .mtab th { text-align: right; } .mtab td:first-child, .mtab th:first-child { text-align: left; }
+.mtab tr.best td { color: var(--text-1); font-weight: 600; }
+.fails { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.fail { background: var(--surface-2); border-radius: 12px; padding: 14px 16px; font-size: 13.5px; color: var(--text-2); }
+.fail b { color: var(--text-1); display: block; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<nav class="lang" aria-label="Idioma / Language"><a href="./" hreflang="es" aria-current="page">ES</a><a href="en/" hreflang="en">EN</a></nav>
+<header class="hero">
+  <canvas id="bg"></canvas>
+  <div class="wrap">
+    <div class="eyebrow">Demo · RAG local · Construcción e instalaciones</div>
+    <h1>Pregunta al CTE y al REBT y recibe la cifra con su artículo</h1>
+    <p class="lede">Un asistente que responde dudas de normativa (DB-SI, DB-SUA, DB-HE y Reglamento de Baja Tensión) citando documento, sección y página. Funciona entero en un portátil: ningún documento ni pregunta sale de la empresa.</p>
+    <div class="tags"><span class="tag">Búsqueda híbrida BM25 + bge-m3</span><span class="tag">qwen2.5:7b con Ollama</span><span class="tag">Citas verificables</span><span class="tag">Sin nube</span></div>
+  </div>
+</header>
+<main class="wrap">
+  <section class="kpis" id="kpis"></section>
+
+  <div class="grid">
+    <section class="card reveal">
+      <h2>Pruébalo con las preguntas del test</h2>
+      <p class="sub">33 preguntas redactadas como las haría un técnico: 30 con respuesta en los documentos y 3 sobre normas que no están (RITE, Código Estructural, alta tensión). Respuestas reales del modelo.</p>
+      <div class="controls" id="filters"></div>
+      <div class="split">
+        <div class="qlist" id="qlist"></div>
+        <div id="detail"></div>
+      </div>
+    </section>
+
+    <section class="card span-6 reveal">
+      <h2>Resultado de las 30 preguntas con respuesta</h2>
+      <p class="sub">Revisadas una a una frente al texto de la norma.</p>
+      <div class="stack" id="stack"></div>
+      <div class="legend" id="stack-legend"></div>
+      <p class="note" id="stack-note"></p>
+    </section>
+
+    <section class="card span-6 reveal">
+      <h2>¿Encuentra el pasaje correcto?</h2>
+      <p class="sub">Porcentaje de preguntas cuyo pasaje con la cifra aparece entre los primeros resultados, sobre los 1.743 fragmentos.</p>
+      <table class="mtab"><thead><tr><th>Búsqueda</th><th>1.º</th><th>Top 5</th><th>Top 10</th><th>MRR</th></tr></thead><tbody id="mtab"></tbody></table>
+      <p class="note" id="ret-note"></p>
+    </section>
+
+    <section class="card reveal">
+      <h2>Cómo funciona</h2>
+      <p class="sub">Cuatro pasos, todos en local.</p>
+      <div class="steps">
+        <div class="step"><b>Troceado con estructura</b>Los PDF oficiales se cortan en 1.743 fragmentos que conservan documento, sección (SI 3, ITC-BT-25, Artículo 4…), apartado y página. Se quitan cabeceras, índices y números de página.</div>
+        <div class="step"><b>Búsqueda híbrida</b>BM25 encuentra cifras y códigos literales («ITC-BT-25», «0,90 m»); los embeddings bge-m3 encuentran el significado aunque la pregunta use otras palabras.</div>
+        <div class="step"><b>Respuesta con cita</b>qwen2.5:7b responde solo con los 6 fragmentos recuperados, cita su número y, si no está, dice «No lo encuentro en los documentos indexados».</div>
+        <div class="step"><b>Evaluación honesta</b>Cada respuesta se compara con la cifra correcta y con el pasaje citado. Los fallos se muestran con su causa.</div>
+      </div>
+    </section>
+
+    <section class="card span-6 reveal">
+      <h2>Documentos indexados</h2>
+      <p class="sub">Fragmentos por documento (páginas del PDF entre paréntesis).</p>
+      <div id="docs"></div>
+      <p class="note">CTE DB-SI, DB-SUA y DB-HE (codigotecnico.org) y RD 842/2002 consolidado (BOE, última actualización 03/09/2025).</p>
+    </section>
+
+    <section class="card span-6 reveal">
+      <h2>Qué falla y qué haría en un proyecto real</h2>
+      <p class="sub">Los errores tienen un patrón claro.</p>
+      <div class="fails">
+        <div class="fail"><b>Tablas aplanadas</b>Al extraer el PDF las columnas de algunas tablas se separan; está detrás de 3 de los 9 fallos (anchura de puertas, resistencia estructural, potencia que exige proyecto). Solución: extraer las tablas como tablas e indexarlas fila a fila.</div>
+        <div class="fail"><b>Casos vecinos del mismo párrafo</b>En 2 errores el modelo toma la cifra de una excepción cercana (recorrido de evacuación, pendiente de rampa). Solución: un modelo mayor o un segundo paso que compruebe la cifra contra el pasaje citado.</div>
+        <div class="fail"><b>Siempre con la cita delante</b>Cada respuesta muestra el pasaje del que sale, así el técnico comprueba en segundos. En normativa, el asistente ayuda a buscar; no sustituye la lectura.</div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div>Demo con documentos públicos, sin datos de clientes. Código y evaluación: <a href="https://github.com/alvaromcib/rag-normativa-cte">github.com/alvaromcib/rag-normativa-cte</a></div>
+    <a class="cta" href="https://www.malt.com/profile/alvaromartincoll">Hablemos en Malt</a>
+  </footer>
+</main>
+<script>/* Minimal SVG chart kit shared by the portfolio dashboards.
+   Line (crosshair + tooltip), scatter, horizontal bar. No dependencies. */
+(function () {
+  const NS = "http://www.w3.org/2000/svg";
+  const LOC = (document.documentElement.lang || "es").startsWith("en") ? "en-US" : "es-ES";
+  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const el = (tag, attrs = {}, parent) => {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  };
+  const nice = (min, max, n = 5) => {
+    const span = max - min || 1;
+    const step0 = span / n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
+    const step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => span / s <= n) || 10 * mag;
+    const lo = Math.floor(min / step) * step, hi = Math.ceil(max / step) * step;
+    const ticks = [];
+    for (let v = lo; v <= hi + step / 2; v += step) ticks.push(+v.toFixed(10));
+    return { lo, hi, ticks };
+  };
+  const fmt = (v) => {
+    const a = Math.abs(v);
+    if (a >= 1e6) return (v / 1e6).toFixed(a >= 1e7 ? 0 : 1).replace(/\.0$/, "") + "M";
+    if (a >= 1e4) return (v / 1e3).toFixed(0) + "K";
+    if (Number.isInteger(v)) return v.toLocaleString(LOC);
+    return v.toLocaleString(LOC, { maximumFractionDigits: 2 });
+  };
+
+  let tip;
+  const tooltip = () => {
+    if (!tip) { tip = document.createElement("div"); tip.className = "viz-tip"; document.body.appendChild(tip); }
+    return tip;
+  };
+  const showTip = (html, ev) => {
+    const t = tooltip(); t.innerHTML = html; t.style.opacity = 1;
+    const r = t.getBoundingClientRect();
+    let x = ev.clientX + 14, y = ev.clientY + 14;
+    if (x + r.width > innerWidth - 8) x = ev.clientX - r.width - 14;
+    if (y + r.height > innerHeight - 8) y = ev.clientY - r.height - 14;
+    t.style.left = x + "px"; t.style.top = y + "px";
+  };
+  const hideTip = () => { if (tip) tip.style.opacity = 0; };
+
+  function frame(host, o) {
+    host.innerHTML = "";
+    const W = host.clientWidth || 600, H = o.height || 300;
+    const m = { t: 12, r: o.right || 16, b: o.xLabel ? 44 : 28, l: 52 };
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", height: H, role: "img",
+                             "aria-label": o.aria || "" }, host);
+    return { svg, W, H, m, iw: W - m.l - m.r, ih: H - m.t - m.b };
+  }
+  function axes(f, xs, ys, o) {
+    const g = el("g", {}, f.svg);
+    ys.ticks.forEach((v) => {
+      const y = f.m.t + f.ih - ((v - ys.lo) / (ys.hi - ys.lo)) * f.ih;
+      el("line", { x1: f.m.l, x2: f.m.l + f.iw, y1: y, y2: y, stroke: css("--grid"), "stroke-width": 1 }, g);
+      const t = el("text", { x: f.m.l - 8, y: y + 4, "text-anchor": "end", class: "viz-tick" }, g);
+      t.textContent = (o.yFmt || fmt)(v);
+    });
+    xs.ticks.forEach((v) => {
+      const x = f.m.l + ((v - xs.lo) / (xs.hi - xs.lo)) * f.iw;
+      const t = el("text", { x, y: f.m.t + f.ih + 18, "text-anchor": "middle", class: "viz-tick" }, g);
+      t.textContent = (o.xFmt || fmt)(v);
+    });
+    el("line", { x1: f.m.l, x2: f.m.l + f.iw, y1: f.m.t + f.ih, y2: f.m.t + f.ih, stroke: css("--axis") }, g);
+    if (o.xLabel) {
+      const t = el("text", { x: f.m.l + f.iw / 2, y: f.H - 6, "text-anchor": "middle", class: "viz-label" }, g);
+      t.textContent = o.xLabel;
+    }
+    if (o.yLabel) {
+      const t = el("text", { x: 12, y: f.m.t + f.ih / 2, "text-anchor": "middle", class: "viz-label",
+                              transform: `rotate(-90 12 ${f.m.t + f.ih / 2})` }, g);
+      t.textContent = o.yLabel;
+    }
+  }
+
+  /* series: [{name, values, color, dash, fill}] ; x: array of numbers */
+  function line(host, o) {
+    const f = frame(host, o);
+    const all = o.series.flatMap((s) => s.values.filter((v) => v != null));
+    const xs = nice(Math.min(...o.x), Math.max(...o.x), o.xTicks || 6);
+    xs.lo = Math.min(...o.x); xs.hi = Math.max(...o.x);
+    xs.ticks = xs.ticks.filter((v) => v >= xs.lo && v <= xs.hi);
+    const ys = nice(o.yMin ?? Math.min(0, ...all), o.yMax ?? Math.max(...all), 5);
+    axes(f, xs, ys, o);
+    const X = (v) => f.m.l + ((v - xs.lo) / (xs.hi - xs.lo)) * f.iw;
+    const Y = (v) => f.m.t + f.ih - ((v - ys.lo) / (ys.hi - ys.lo)) * f.ih;
+    if (o.band) { // horizontal band e.g. alert zone
+      el("rect", { x: f.m.l, width: f.iw, y: Y(o.band.to), height: Y(o.band.from) - Y(o.band.to),
+                   fill: o.band.color, opacity: 0.12 }, f.svg);
+      const t = el("text", { x: f.m.l + f.iw - 6, y: Y(o.band.to) + 14, "text-anchor": "end", class: "viz-tick" }, f.svg);
+      t.textContent = o.band.label;
+    }
+    o.series.forEach((s) => {
+      let d = "", pen = false;
+      s.values.forEach((v, i) => {
+        if (v == null) { pen = false; return; }
+        d += (pen ? "L" : "M") + X(o.x[i]).toFixed(1) + "," + Y(v).toFixed(1); pen = true;
+      });
+      if (s.fill) {
+        const first = s.values.findIndex((v) => v != null);
+        const last = s.values.length - 1 - [...s.values].reverse().findIndex((v) => v != null);
+        el("path", { d: d + `L${X(o.x[last])},${Y(ys.lo)}L${X(o.x[first])},${Y(ys.lo)}Z`,
+                     fill: s.color, opacity: 0.1 }, f.svg);
+      }
+      el("path", { d, fill: "none", stroke: s.color, "stroke-width": s.width || 2,
+                   "stroke-linejoin": "round", "stroke-linecap": "round",
+                   "stroke-dasharray": s.dash || "" }, f.svg);
+    });
+    // crosshair
+    const hair = el("line", { y1: f.m.t, y2: f.m.t + f.ih, stroke: css("--axis"), opacity: 0 }, f.svg);
+    const dots = o.series.map((s) => el("circle", { r: 4, fill: s.color, stroke: css("--surface"),
+                                                     "stroke-width": 2, opacity: 0 }, f.svg));
+    const hit = el("rect", { x: f.m.l, y: f.m.t, width: f.iw, height: f.ih, fill: "transparent" }, f.svg);
+    hit.addEventListener("mousemove", (ev) => {
+      const r = f.svg.getBoundingClientRect();
+      const px = ((ev.clientX - r.left) / r.width) * f.W;
+      const xv = xs.lo + ((px - f.m.l) / f.iw) * (xs.hi - xs.lo);
+      let i = 0, best = Infinity;
+      o.x.forEach((v, k) => { const d = Math.abs(v - xv); if (d < best) { best = d; i = k; } });
+      hair.setAttribute("x1", X(o.x[i])); hair.setAttribute("x2", X(o.x[i])); hair.setAttribute("opacity", 1);
+      let html = `<b>${(o.xTip || ((v) => (o.xLabel || "x") + " " + fmt(v)))(o.x[i])}</b>`;
+      o.series.forEach((s, k) => {
+        const v = s.values[i];
+        if (v == null) { dots[k].setAttribute("opacity", 0); return; }
+        dots[k].setAttribute("cx", X(o.x[i])); dots[k].setAttribute("cy", Y(v)); dots[k].setAttribute("opacity", 1);
+        html += `<div><i style="background:${s.color}"></i>${s.name}: <b>${(o.yTip || fmt)(v)}</b></div>`;
+      });
+      showTip(html, ev);
+    });
+    hit.addEventListener("mouseleave", () => { hair.setAttribute("opacity", 0); dots.forEach((d) => d.setAttribute("opacity", 0)); hideTip(); });
+  }
+
+  /* points: [{x, y, label}] */
+  function scatter(host, o) {
+    const f = frame(host, o);
+    const vx = o.points.map((p) => p.x), vy = o.points.map((p) => p.y);
+    const lo = Math.min(0, ...vx, ...vy), hi = Math.max(...vx, ...vy);
+    const xs = nice(lo, hi, 5), ys = nice(lo, hi, 5);
+    axes(f, xs, ys, o);
+    const X = (v) => f.m.l + ((v - xs.lo) / (xs.hi - xs.lo)) * f.iw;
+    const Y = (v) => f.m.t + f.ih - ((v - ys.lo) / (ys.hi - ys.lo)) * f.ih;
+    if (o.diag) el("line", { x1: X(xs.lo), y1: Y(ys.lo), x2: X(Math.min(xs.hi, ys.hi)), y2: Y(Math.min(xs.hi, ys.hi)),
+                             stroke: css("--text-3"), "stroke-width": 1 }, f.svg);
+    o.points.forEach((p) => {
+      const c = el("circle", { cx: X(p.x), cy: Y(p.y), r: 4.5, fill: p.color || o.color,
+                               stroke: css("--surface"), "stroke-width": 2 }, f.svg);
+      const h = el("circle", { cx: X(p.x), cy: Y(p.y), r: 10, fill: "transparent" }, f.svg);
+      h.addEventListener("mousemove", (ev) => { c.setAttribute("r", 6); showTip(p.tip || `${fmt(p.x)} → ${fmt(p.y)}`, ev); });
+      h.addEventListener("mouseleave", () => { c.setAttribute("r", 4.5); hideTip(); });
+    });
+  }
+
+  /* items: [{label, value}] horizontal bars, value labels at tip */
+  function bars(host, o) {
+    host.innerHTML = "";
+    const max = Math.max(...o.items.map((d) => d.value));
+    o.items.forEach((d) => {
+      const row = document.createElement("div"); row.className = "viz-bar";
+      row.innerHTML = `<span class="viz-bar-l">${d.label}</span>
+        <span class="viz-bar-t"><span class="viz-bar-f" style="width:${(100 * d.value) / max}%;background:${d.color || o.color}"></span></span>
+        <span class="viz-bar-v">${(o.fmt || fmt)(d.value)}</span>`;
+      row.addEventListener("mousemove", (ev) => showTip(`<b>${d.label}</b><div>${(o.fmt || fmt)(d.value)}</div>`, ev));
+      row.addEventListener("mouseleave", hideTip);
+      host.appendChild(row);
+    });
+  }
+
+  /* Animate numbers counting up (data-count attr) */
+  function countUp(root = document) {
+    root.querySelectorAll("[data-count]").forEach((e) => {
+      const target = parseFloat(e.dataset.count), dec = +(e.dataset.dec || 0);
+      const pre = e.dataset.pre || "", suf = e.dataset.suf || "";
+      const t0 = performance.now(), dur = 1200;
+      const step = (t) => {
+        const k = Math.min(1, (t - t0) / dur), v = target * (1 - Math.pow(1 - k, 3));
+        e.textContent = pre + v.toLocaleString(LOC, { minimumFractionDigits: dec, maximumFractionDigits: dec }) + suf;
+        if (k < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }
+
+  window.Viz = { line, scatter, bars, countUp, fmt, LOC };
+})();
+</script>
+<script>
+const D = {"corpus": {"chunks": 1743, "docs": [{"doc": "DB-SI", "chunks": 249, "pages": 86, "sections": 13}, {"doc": "DB-SUA", "chunks": 123, "pages": 47, "sections": 13}, {"doc": "DB-HE", "chunks": 154, "pages": 54, "sections": 15}, {"doc": "REBT", "chunks": 1217, "pages": 287, "sections": 82}]}, "retrieval": {"bm25": {"sec@1": 0.567, "sec@5": 0.833, "psg@1": 0.6, "psg@5": 0.7, "psg@10": 0.833, "mrr": 0.652, "ms_per_query": 3.6}, "dense": {"sec@1": 0.867, "sec@5": 0.967, "psg@1": 0.667, "psg@5": 0.933, "psg@10": 0.967, "mrr": 0.771, "ms_per_query": 2232.6}, "hybrid": {"sec@1": 0.833, "sec@5": 0.933, "psg@1": 0.7, "psg@5": 0.9, "psg@10": 0.933, "mrr": 0.773, "ms_per_query": 2219.1}}, "summary": {"model": "qwen2.5:7b", "embeddings": "bge-m3", "machine": "Intel64 Family 6 Model 126 Stepping 5, GenuineIntel", "s_llm_median": 117.5, "minutes_total": 66.6, "n_in_scope": 30, "correct": 21, "unsupported": 2, "wrong": 4, "abstained": 3, "oos_abstained": 3, "n_out_of_scope": 3, "format_slips": 7}, "answers": [{"id": 1, "q": "¿Cuál es la longitud máxima del recorrido de evacuación hasta una salida de planta en general?", "answer": "[4] La longitud de los recorridos de evacuación hasta alguna salida de planta no excede de 50 m, excepto en los casos que se indican a continuación: - 35 m en zonas en las que se prevea la presencia de ocupantes que duermen, o en plantas de hospitalización o de tratamiento intensivo en uso Hospitalario y en plantas de escuela infantil o de enseñanza primaria. - 75 m en espacios al aire libre en los que el riesgo de declaración de un incendio sea irrelevante, por ejemplo, una cubierta de edificio, una terraza, etc.\n\nEn general, la longitud máxima del recorrido de evacuación hasta una salida de planta es de 50 m.", "outcome": "wrong", "gold": {"doc": "DB-SI", "section": "SI 3", "answer_key": "25 m"}, "why": {"es": "Mezcló dos casos del mismo párrafo: tomó los 50 m de plantas con más de una salida en vez de los 25 m generales.", "en": "Mixed two cases from the same paragraph: took 50 m (floors with more than one exit) instead of the general 25 m."}, "s": 187.0, "citations": [{"n": 4, "cite": "DB-SI · SI 3 · p. 22", "text": "to; - 50 m si se trata de una planta, incluso de uso Aparcamiento, que tiene una salida directa al espacio exterior seguro y la ocupación no excede de 25 personas, o bien de un espacio al aire libre en el que el riesgo de incendio sea irrelevante, por ejemplo, una cubierta de edificio, una terraza, etc. La altura de evacuación descendente de la planta considerada no excede de 28 m, excepto en uso Residencial Público, en cuyo caso es, como máximo, la segunda planta por encima de la de salida de edificio(2), o de 10 m cuando la evacuación sea ascendente. Plantas o recintos que disponen de más de una salida de planta o salida de recinto respectivamente (3) La longitud de los recorridos de evacuación hasta alguna salida de planta no excede de 50 m, excepto en los casos que se indican a continuación: - 35 m en zonas en las que se prevea la presencia de ocupantes que duermen, o en plantas de hospitalización o de tratamiento intensivo en uso Hospitalario y en plantas de escuela infantil o de enseñanza primaria. - 75 m en espacios al aire libre en los que el riesgo de declaración de un incen"}], "rank": {"bm25": 7, "dense": 3, "hybrid": 5}}, {"id": 2, "q": "¿Qué anchura mínima debe tener una puerta en un recorrido de evacuación?", "answer": "[1] La anchura mínima de una puerta en un recorrido de evacuación debe ser al menos igual al 80% de la anchura de cálculo de la escalera. En uso Hospitalario, la anchura mínima de la puerta es de A ≥ 1,05 m, incluso en puertas de habitación. En uso Hospitalario A ≥ 2,20 m (≥ 2,10 m en el paso a través de puertas). En establecimientos de uso Comercial, si la superficie construida del área de ventas excede de 400 m² y está previsto el uso de carros para transporte de productos, entre baterías con más de 10 cajas de cobro y estanterías, la anchura mínima de los pasillos es A ≥", "outcome": "wrong", "gold": {"doc": "DB-SI", "section": "SI 3", "answer_key": "0,80 m"}, "why": {"es": "La cifra está en una tabla cuyas columnas se separan al extraer el PDF; el modelo tomó otra fila.", "en": "The figure sits in a table whose columns come apart when the PDF is extracted; the model took another row."}, "s": 201.6, "citations": [{"n": 1, "cite": "DB-SI · SI 3 · 4.2 Cálculo · p. 26", "text": "sario aplicar la hipótesis de bloqueo de salidas de planta indicada en el punto 4.1 en una de las plantas, bajo la hipótesis más desfavorable; S= Superficie útil del recinto, o bien de la escalera protegida en el conjunto de las plantas de las que provienen las P personas, incluyendo la superficie de los tramos, de los rellanos y de las mesetas intermedias o bien del pasillo protegido. SI 3. Evacuación de ocupantes (1) La anchura de cálculo de una puerta de salida del recinto de una escalera protegida a planta de salida del edificio debe ser al menos igual al 80% de la anchura de cálculo de la escalera. (2) En uso Hospitalario A  1,05 m, incluso en puertas de habitación. (3) En uso Hospitalario A  2,20 m ( 2,10 m en el paso a través de puertas). (4) En establecimientos de uso Comercial, la anchura mínima de los pasillos situados en áreas de venta es la siguiente: a) Si la superficie construida del área de ventas en la planta considerada excede de 400 m2: - si está previsto el uso de carros para transporte de productos: entre baterías con más de 10 cajas de cobro y estanterías: A "}], "rank": {"bm25": null, "dense": 1, "hybrid": 4}}, {"id": 3, "q": "¿Qué superficie máxima puede tener un sector de incendio en un edificio de viviendas?", "answer": "[1] La superficie construida de todo sector de incendio en un edificio residencial no debe exceder de 2.500 m2. No se establece límite de superficie para los sectores de riesgo mínimo.", "outcome": "correct", "gold": {"doc": "DB-SI", "section": "SI 1", "answer_key": "2.500 m2"}, "why": null, "s": 129.1, "citations": [{"n": 1, "cite": "DB-SI · SI 1 · p. 10", "text": "I, sea igual o superior a tres millones de megajulios. - Un espacio diáfano puede constituir un único sector de incendio que supere los límites de superficie construida que se establecen, siempre que al menos el 90% de ésta se desarrolle en una planta, sus salidas comuniquen directamente con el espacio libre exterior, al menos el 75% de su perímetro sea fachada y no exista sobre dicho recinto ninguna zona habitable. - No se establece límite de superficie para los sectores de riesgo mínimo. Residencial Vivienda - La superficie construida de todo sector de incendio no debe exceder de 2.500 m2. - Los elementos que separan viviendas entre sí deben ser al menos EI 60. Administrativo - La superficie construida de todo sector de incendio no debe exceder de 2.500 m2. Comercial(3) - Excepto en los casos contemplados en los guiones siguientes, la superficie construida de todo sector de incendio no debe exceder de: i) 2.500 m2, en general; ii) 10.000 m2 en los establecimientos o centros comerciales que ocupen en su totalidad un edificio íntegramente protegido con una instalación automática de e"}], "rank": {"bm25": 1, "dense": 1, "hybrid": 1}}, {"id": 4, "q": "¿Cada cuántos metros de recorrido hay que colocar extintores portátiles?", "answer": "[1] Deben colocarse extintores portátiles a una distancia máxima de 15 m de recorrido en cada planta desde todo origen de evacuación, en las zonas de riesgo especial conforme al capítulo 2 de la Sección 1 de este DB.", "outcome": "correct", "gold": {"doc": "DB-SI", "section": "SI 4", "answer_key": "15 m"}, "why": null, "s": 141.7, "citations": [{"n": 1, "cite": "DB-SI · SI 4 · p. 32", "text": "1.1 del Capítulo 1 de la Sección 1 de este DB, deban constituir un sector de incendio diferente, deben disponer de la dotación de instalaciones que se indica para cada local de riesgo especial, así como para cada zona, en función de su uso previsto, pero en ningún caso será inferior a la exigida con carácter general para el uso principal del edificio o del establecimiento. Tabla 1.1. Dotación de instalaciones de protección contra incendios Uso previsto del edificio o establecimiento Instalación Condiciones En general Extintores portátiles Uno de eficacia 21A -113B: - A 15 m de recorrido en cada planta, como máximo, desde todo origen de evacuación. - En las zonas de riesgo especial conforme al capítulo 2 de la Sección 1(1) de este DB. Bocas de incendio equipadas En zonas de riesgo especial alto, conforme al capítulo 2 de la Sección SI1, en las que el riesgo se deba principalmente a materias combustibles sólidas(2) Ascensor de emergencia En las plantas cuya altura de evacuación exceda de 28 m Hidrantes exteriores Si la altura de evacuación descendente excede de 28 m o si la ascendente "}], "rank": {"bm25": 1, "dense": 1, "hybrid": 1}}, {"id": 5, "q": "¿Qué anchura libre debe tener el vial de aproximación de los vehículos de bomberos?", "answer": "[1] El vial de aproximación de los vehículos de bomberos debe tener una anchura mínima libre de 3,5 m.", "outcome": "correct", "gold": {"doc": "DB-SI", "section": "SI 5", "answer_key": "3,5 m"}, "why": null, "s": 136.3, "citations": [{"n": 1, "cite": "DB-SI · SI 5 · p. 36", "text": "Sección SI 5 Intervención de los bomberos Condiciones de aproximación y entorno(1) 1.1 Aproximación a los edificios Los viales de aproximación de los vehículos de los bomberos a los espacios de maniobra a los que se refiere el apartado 1.2, deben cumplir las condiciones siguientes: a) anchura mínima libre 3,5 m; b) altura mínima libre o gálibo 4,5 m; c) capacidad portante del vial 20 kN/m². En los tramos curvos, el carril de rodadura debe quedar delimitado por la traza de una corona circular cuyos radios mínimos deben ser 5,30 m y 12,50 m, con una anchura libre para circulación de 7,20 m. 1.2 Entorno de los edificios Los edificios con una altura de evacuación descendente mayor que 9 m deben disponer de un espacio de maniobra para los bomberos que cumpla las siguientes condiciones a lo largo de las fachadas en las que estén situados los accesos, o bien al interior del edificio, o bien al espacio abierto interior en el que se encuentren aquellos: a) anchura mínima libre 5 m b) altura libre la del edificio c) separación máxima del vehículo de bomberos a la fachada del edificio - edifici"}], "rank": {"bm25": 1, "dense": 1, "hybrid": 1}}, {"id": 6, "q": "¿Qué resistencia al fuego necesita la fachada en la franja junto a una escalera protegida?", "answer": "[1] Según el fragmento [1], la fachada debe tener una resistencia al fuego de al menos EI 60 en una franja de 1 m de altura medida sobre el plano de la fachada, con el fin de limitar el riesgo de propagación vertical del incendio por fachada entre sectores de incendio. No se especifica si esta condición se aplica específicamente a las fachadas junto a una escalera protegida, pero se menciona que esta regla se aplica a fachadas enfrentadas en general.", "outcome": "correct", "gold": {"doc": "DB-SI", "section": "SI 2", "answer_key": "EI 60"}, "why": null, "s": 157.9, "citations": [{"n": 1, "cite": "DB-SI · SI 2 · p. 19", "text": "a la bisectriz del ángulo formado por ambas fachadas. α 0º(1) 45º 60º 90º 135º 180º d (m) 3,00 2,75 2,50 2,00 1,25 0,50 (1) Refleja el caso de fachadas enfrentadas paralelas Figura 1.1. Fachadas enfrentadas Figura 1.2. Fachadas a 45º Figura 1.3. Fachadas a 60º Figura 1.4. Fachadas a 90º SI 2. Propagación exterior Figura 1.5. Fachadas a 135º Figura 1.6. Fachadas a 180º Con el fin de limitar el riesgo de propagación vertical del incendio por fachada entre dos sectores de incendio, entre una zona de riesgo especial alto y otras zonas más altas del edificio, o bien hacia una escalera protegida o hacia un pasillo protegido desde otras zonas, dicha fachada debe ser al menos EI 60 en una franja de 1 m de altura, como mínimo, medida sobre el plano de la fachada (véase figura 1.7). En caso de existir elementos salientes aptos para impedir el paso de las llamas, la altura de dicha franja podrá reducirse en la dimensión del citado saliente (véase figura 1.8). Figura 1.7 Encuentro forjado-fachada Figura 1. 8 Encuentro forjadofachada con saliente La clase de reacción al fuego de los sistemas cons"}], "rank": {"bm25": 1, "dense": 1, "hybrid": 1}}, {"id": 7, "q": "¿Qué resistencia al fuego estructural se exige en un edificio de viviendas de menos de 15 m de altura de evacuación?", "answer": "No lo encuentro en los documentos indexados.", "outcome": "abstained", "gold": {"doc": "DB-SI", "section": "SI 6", "answer_key": "R 60"}, "why": {"es": "El pasaje correcto se recuperó, pero es una tabla aplanada y el modelo no supo leerla.", "en": "The right passage was retrieved, but it is a flattened table and the model could not read it."}, "s": 122.6, "citations": [], "rank": {"bm25": 10, "dense": 6, "hybrid": 7}}, {"id": 8, "q": "¿Qué altura libre o gálibo mínimo debe tener el vial de aproximación de los bomberos?", "answer": "[1] El vial de aproximación de los bomberos debe tener un gálibo mínimo libre de 4,5 m [1].", "outcome": "correct", "gold": {"doc": "DB-SI", "section": "SI 5", "answer_key": "4,5 m"}, "why": null, "s": 111.4, "citations": [{"n": 1, "cite": "DB-SI · SI 5 · p. 36", "text": "Sección SI 5 Intervención de los bomberos Condiciones de aproximación y entorno(1) 1.1 Aproximación a los edificios Los viales de aproximación de los vehículos de los bomberos a los espacios de maniobra a los que se refiere el apartado 1.2, deben cumplir las condiciones siguientes: a) anchura mínima libre 3,5 m; b) altura mínima libre o gálibo 4,5 m; c) capacidad portante del vial 20 kN/m². En los tramos curvos, el carril de rodadura debe quedar delimitado por la traza de una corona circular cuyos radios mínimos deben ser 5,30 m y 12,50 m, con una anchura libre para circulación de 7,20 m. 1.2 Entorno de los edificios Los edificios con una altura de evacuación descendente mayor que 9 m deben disponer de un espacio de maniobra para los bomberos que cumpla las siguientes condiciones a lo largo de las fachadas en las que estén situados los accesos, o bien al interior del edificio, o bien al espacio abierto interior en el que se encuentren aquellos: a) anchura mínima libre 5 m b) altura libre la del edificio c) separación máxima del vehículo de bomberos a la fachada del edificio - edifici"}], "rank": {"bm25": 1, "dense": 1, "hybrid": 1}}, {"id": 9, "q": "¿Qué altura mínima deben tener las barandillas cuando el desnivel es menor de 6 metros?", "answer": "No lo encuentro en los documentos indexados.", "outcome": "abstained", "gold": {"doc": "DB-SUA", "section": "SUA 1", "answer_key": "0,90 m"}, "why": {"es": "Fallo de búsqueda: «barandilla» trajo pasajes del REBT y no del DB-SUA.", "en": "Retrieval miss: “barandilla” brought REBT passages instead of DB-SUA."}, "s": 95.0, "citations": [], "rank": {"bm25": null, "dense": null, "hybrid": null}}, {"id": 10, "q": "¿Cuánto debe medir como mínimo la huella de un peldaño en una escalera de uso general?", "answer": "[1] La huella de un peldaño en una escalera de uso general debe medir como mínimo 28 cm en tramos rectos. En tramos curvos, la huella medirá 28 cm, como mínimo, a una distancia de 50 cm del borde interior [2, 3].", "outcome": "unsupported", "gold": {"doc": "DB-SUA", "section": "SUA 1", "answer_key": "28 cm"}, "why": {"es": "Respuesta correcta, pero citó los fragmentos como [2, 3] y el evaluador de esta ejecución solo leía [n]; corregido en el código.", "en": "Correct answer, but it cited passages as [2, 3] and this run's scorer only read [n]; fixed in the code."}, "s": 132.4, "citations": [{"n": 1, "cite": "DB-SUA · SUA 1 · p. 8", "text": "en cada peldaño, según la dirección de la marcha. En escaleras de trazado curvo, la huella se medirá en el eje de la escalera, cuando la anchura de esta sea menor que 1 m y a 50 cm del lado más estrecho cuando sea mayor. Además la huella medirá 5 cm, como mínimo, en el lado más estrecho y 44 cm, como máximo, en el lado más ancho. 3 Podrán disponerse mesetas partidas con peldaños a 45º y escalones sin tabica. En este último caso la proyección de las huellas se superpondrá al menos 2,5 cm (véase figura 4.1). La medida de la huella no incluirá la proyección vertical de la huella del peldaño superior."}], "rank": {"bm25": 2, "dense": 2, "hybrid": 2}}, {"id": 11, "q": "¿Cuál es la pendiente máxima de una rampa que no forma parte de un itinerario accesible?", "answer": "[1] La pendiente máxima de una rampa que no forma parte de un itinerario accesible es del 16%, excepto para las rampas de circulación de vehículos en aparcamientos que también estén previstas para la circulación de personas, cuya pendiente será del 16% como máximo.", "outcome": "wrong", "gold": {"doc": "DB-SUA", "section": "SUA 1", "answer_key": "12%"}, "why": {"es": "Dio el 16 % de las rampas de vehículos (una excepción) en vez del 12 % general.", "en": "Gave 16 % (vehicle ramps, an exception) instead of the general 12 %."}, "s": 143.3, "citations": [{"n": 1, "cite": "DB-SUA · SUA 1 · 4 Dispondrán de barandilla en sus lados abiertos. · p. 11", "text": " de sujeción no interferirá el paso continuo de la mano. 4.3 Rampas Los itinerarios cuya pendiente exceda del 4% se consideran rampa a efectos de este DB-SUA, y cumplirán lo que se establece en los apartados que figuran a continuación, excepto los de uso restringido y los de circulación de vehículos en aparcamientos que también estén previstas para la circulación de personas. Estas últimas deben satisfacer la pendiente máxima que se establece para ellas en el apartado 4.3.1 siguiente, así como las condiciones de la Sección SUA 7. 4.3.1 Pendiente Las rampas tendrán una pendiente del 12%, como máximo, excepto: a) las que pertenezcan a itinerarios accesibles, cuya pendiente será, como máximo, del 10% cuando su longitud sea menor que 3 m, del 8% cuando la longitud sea menor que 6 m y del 6% en el resto de los casos. Si la rampa es curva, la pendiente longitudinal máxima se medirá en el lado más desfavorable. b) las de circulación de vehículos en aparcamientos que también estén previstas para la circulación de personas, y no pertenezcan a un itinerario accesible, cuya pendiente será, como"}], "rank": {"bm25": 1, "dense": 1, "hybrid": 1}}, {"id": 12, "q": "¿Qué iluminancia mínima debe tener una zona de circulación interior?", "answer": "[1] La iluminancia mínima en zonas de circulación interior debe ser de 100 lux, excepto en aparcamientos interiores donde será de 50 lux [1].", "outcome": "correct", "gold": {"doc": "DB-SUA", "section": "SUA 4", "answer_key": "100 lux"}, "why": null, "s": 107.4, "citations": [{"n": 1, "cite": "DB-SUA · SUA 4 · p. 21", "text": "Sección SUA 4 Seguridad frente al riesgo causado por iluminación inadecuada Alumbrado normal en zonas de circulación En cada zona se dispondrá una instalación de alumbrado capaz de proporcionar, una iluminancia mínima de 20 lux en zonas exteriores y de 100 lux en zonas interiores, excepto aparcamientos interiores en donde será de 50 lux, medida a nivel del suelo. El factor de uniformidad media será del 40% como mínimo. En las zonas de los establecimientos de uso Pública Concurrencia en las que la actividad se desarrolle con un nivel bajo de iluminación, como es el caso de los cines, teatros, auditorios, discotecas, etc., se dispondrá una iluminación de balizamiento en las rampas y en cada uno de los peldaños de las escaleras. Alumbrado de emergencia 2.1 Dotación Los edificios dispondrán de un alumbrado de emergencia que, en caso de fallo del alumbrado normal, suministre la iluminación necesaria para facilitar la visibilidad a los usuarios de manera que puedan abandonar el edificio, evite las situaciones de pánico y permita la visión de las señales indicativas de las salidas y la situ"}], "rank": {"bm25": 3, "dense": 1, "hybrid": 1}}, {"id": 13, "q": "¿Qué iluminancia mínima se exige en zonas de circulación exteriores?", "answer": "[1] Se exige una iluminancia mínima de 20 lux en zonas de circulación exteriores.", "outcome": "correct", "gold": {"doc": "DB-SUA", "section": "SUA 4", "answer_key": "20 lux"}, "why": null, "s": 63.3, "citations": [{"n": 1, "cite": "DB-SUA · SUA 4 · p. 21", "text": "Sección SUA 4 Seguridad frente al riesgo causado por iluminación inadecuada Alumbrado normal en zonas de circulación En cada zona se dispondrá una instalación de alumbrado capaz de proporcionar, una iluminancia mínima de 20 lux en zonas exteriores y de 100 lux en zonas interiores, excepto aparcamientos interiores en donde será de 50 lux, medida a nivel del suelo. El factor de uniformidad media será del 40% como mínimo. En las zonas de los establecimientos de uso Pública Concurrencia en las que la actividad se desarrolle con un nivel bajo de iluminación, como es el caso de los cines, teatros, auditorios, discotecas, etc., se dispondrá una iluminación de balizamiento en las rampas y en cada uno de los peldaños de las escaleras. Alumbrado de emergencia 2.1 Dotación Los edificios dispondrán de un alumbrado de emergencia que, en caso de fallo del alumbrado normal, suministre la iluminación necesaria para facilitar la visibilidad a los usuarios de manera que puedan abandonar el edificio, evite las situaciones de pánico y permita la visión de las señales indicativas de las salidas y la situ"}], "rank": {"bm25": 1, "dense": 4, "hybrid": 1}}, {"id": 14, "q": "¿Cuándo es obligatorio un ascensor accesible o una rampa accesible entre plantas?", "answer": "[1] Un ascensor accesible o una rampa accesible es obligatorio en edificios de uso Residencial Vivienda cuando hay que salvar más de dos plantas desde alguna entrada principal accesible hasta alguna vivienda o zona comunitaria, o cuando existen más de 12 viviendas en plantas sin entrada principal accesible. En otros casos, el proyecto debe prever al menos dimensional y estructuralmente la instalación de un ascensor accesible.\n\n[2] También es obligatorio un ascensor accesible o una rampa accesible en edificios de otros usos cuando hay que salvar más de dos plantas desde alguna entrada principal accesible hasta alguna planta que no sea de ocupación nula, o cuando la superficie útil total del edificio, excluyendo las de ocupación nula, supera los 200 m2. Además, en las plantas que tengan zonas de uso público con más de 100 m2 de superficie útil o elementos accesibles, como plazas de aparcamiento accesibles, deben instalarse ascensor accesibles o rampas accesibles.", "outcome": "correct", "gold": {"doc": "DB-SUA", "section": "SUA 9", "answer_key": "ascensor accesible"}, "why": null, "s": 165.9, "citations": [{"n": 1, "cite": "DB-SUA · SUA 9 · p. 31", "text": "ardines, piscinas, zonas deportivas, etc. 1.1.2 Accesibilidad entre plantas del edificio Los edificios de uso Residencial Vivienda en los que haya que salvar más de dos plantas desde alguna entrada principal accesible al edificio hasta alguna vivienda o zona comunitaria, o con más de 12 viviendas en plantas sin entrada principal accesible al edificio, dispondrán de ascensor accesible o rampa accesible (conforme al apartado 4 del SUA 1) que comunique las plantas que no sean de ocupación nula (ver definición en el anejo SI A del DB SI) con las de entrada accesible al edificio. En el resto de los casos, el proyecto debe prever, al menos dimensional y estructuralmente, la instalación de un ascensor accesible que comunique dichas plantas. Las plantas con viviendas accesibles para usuarios de silla de ruedas dispondrán de ascensor accesible o de rampa accesible que las comunique con las plantas con entrada accesible al edificio y con las que tengan elementos asociados a dichas viviendas o zonas comunitarias, tales como trastero o plaza de aparcamiento de la vivienda accesible, sala de comu"}, {"n": 2, "cite": "DB-SUA · SUA 9 · p. 31", "text": "s con entrada accesible al edificio y con las que tengan elementos asociados a dichas viviendas o zonas comunitarias, tales como trastero o plaza de aparcamiento de la vivienda accesible, sala de comunidad, tendedero, etc. Los edificios de otros usos en los que haya que salvar más de dos plantas desde alguna entrada principal accesible al edificio hasta alguna planta que no sea de ocupación nula, o cuando en total existan más de 200 m2 de superficie útil (ver definición en el anejo SI A del DB SI) excluida la superficie de zonas de ocupación nula en plantas sin entrada accesible al edificio, dispondrán de ascensor accesible o rampa accesible que comunique las plantas que no sean de ocupación nula con las de entrada accesible al edificio. Las plantas que tengan zonas de uso público con más de 100 m2 de superficie útil o elementos accesibles, tales como plazas de aparcamiento accesibles, alojamientos accesibles, plazas reservadas, etc., dispondrán de ascensor accesible o rampa accesible que las comunique con las de entrada accesible al edificio. 1.1.3 Accesibilidad en las plantas del e"}], "rank": {"bm25": 1, "dense": 1, "hybrid": 1}}, {"id": 15, "q": "¿Qué porcentaje mínimo de la demanda de agua caliente sanitaria debe cubrirse con renovables si la demanda es baja?", "answer": "[3] [4] Según los fragmentos [3] y [4], si la demanda de agua caliente sanitaria (ACS) es inferior a 5000 l/d, la contribución mínima de energía procedente de fuentes renovables puede reducirse al 60%.", "outcome": "correct", "gold": {"doc": "DB-HE", "section": "HE 4", "answer_key": "60%"}, "why": null, "s": 94.2, "citations": [{"n": 3, "cite": "DB-HE · HE 4 · p. 28", "text": " cubiertas existentes en las que se renueve la instalación de generación térmica o piscinas descubiertas existentes que pasen a ser cubiertas. Caracterización de la exigencia Los edificios satisfarán sus necesidades de ACS y de calentamiento de agua para la climatización de piscina cubierta empleando en gran medida energía procedente de fuentes renovables o procesos de cogeneración renovables; bien generada en el propio edificio o bien a través de la conexión a un sistema urbano de calefacción. Cuantificación de la exigencia 3.1 Contribución renovable mínima para ACS y/o climatización de piscina La contribución mínima de energía procedente de fuentes renovables cubrirá al menos el 70% de la demanda energética anual para ACS y para climatización de piscina, obtenida a partir de los valores mensuales, e incluyendo las pérdidas térmicas por distribución, acumulación y recirculación. Esta contribución mínima podrá reducirse al 60% cuando la demanda de ACS sea inferior a 5000 l/d. Se considerará únicamente la aportación renovable de la energía con origen in situ o en las proximidades del "}, {"n": 4, "cite": "DB-HE · HE 4 · p. 28", "text": "ntribución mínima podrá reducirse al 60% cuando la demanda de ACS sea inferior a 5000 l/d. Se considerará únicamente la aportación renovable de la energía con origen in situ o en las proximidades del edificio, o procedente de biomasa sólida. En el caso de ampliaciones e intervenciones en edificios existentes, contemplados en el punto 1 c) del ámbito de aplicación, la contribución renovable mínima se establece sobre el incremento de la demanda de ACS respecto a la demanda inicial. Las fuentes renovables que satisfagan la contribución renovable mínima de ACS y/o climatización de piscina, pueden estar integradas en la propia generación térmica del edificio o ser accesibles a través de la conexión a un sistema urbano de calefacción. Las bombas de calor destinadas a la producción de ACS y/o climatización de piscina, para poder considerar su contribución renovable a efectos de esta sección, deberán disponer de un valor de rendimiento medio estacional (SCOPdhw) igual o superior a 2,5 cuando sean accionadas eléctricamente e igual o superior a 1,15 cuando sean accionadas mediante energía térm"}], "rank": {"bm25": 9, "dense": 2, "hybrid": 3}}, {"id": 16, "q": "¿A partir de qué superficie construida hay que generar electricidad renovable en un edificio nuevo?", "answer": "[1] A partir de una superficie construida superior a 1.000 m2, en edificios de nueva construcción, se requiere la generación de energía eléctrica procedente de fuentes renovables para uso propio o suministro a la red.", "outcome": "correct", "gold": {"doc": "DB-HE", "section": "HE 5", "answer_key": "1.000 m2"}, "why": null, "s": 122.1, "citations": [{"n": 1, "cite": "DB-HE · HE 5 · p. 31", "text": "Sección HE 5 Generación mínima de energía eléctrica procedente de fuentes renovables Ámbito de aplicación Esta sección es de aplicación en los siguientes casos: a) edificios de nueva construcción cuando superen los 1.000 m2 construidos b) ampliaciones de edificios existentes cuando se incremente la superficie construida en más de 1.000 m2 c) edificios existentes que se reformen íntegramente, o en los que se produzca un cambio de uso característico del mismo, cuando se superen los 1.000 m2 de superficie construida; Se considerará que la superficie construida incluye la superficie de las zonas destinadas a aparcamiento en el interior del edificio y excluye las zonas exteriores comunes. Caracterización de la exigencia Los edificios dispondrán de sistemas de generación de energía eléctrica procedente de fuentes renovables para uso propio o suministro a la red. Cuantificación de la exigencia La potencia a instalar mínima Pmin será la menor de las resultantes de estas dos expresiones: P1 = Fpr;el · S P2=0,1 ·(0,5·Sc - Soc) donde, Pmin potencia a instalar [kW]; Fpr;el factor de producción e"}], "rank": {"bm25": null, "dense": 1, "hybrid": 1}}, {"id": 17, "q": "¿Cuántas estaciones de recarga de vehículo eléctrico hay que instalar por plaza de aparcamiento?", "answer": "No lo encuentro en los documentos indexados.", "outcome": "abstained", "gold": {"doc": "DB-HE", "section": "HE 6", "answer_key": "40 plazas"}, "why": {"es": "El pasaje correcto se recuperó, pero el modelo no vio la respuesta y se abstuvo.", "en": "The right passage was retrieved, but the model did not see the answer and abstained."}, "s": 97.1, "citations": [], "rank": {"bm25": 9, "dense": 3, "hybrid": 1}}, {"id": 18, "q": "¿Qué indicador limita la eficiencia energética de la instalación de iluminación?", "answer": "[1] El indicador que limita la eficiencia energética de la instalación de iluminación es el Valor de Eficiencia Energética de la Instalación (VEEI), que no puede superar el valor límite (VEEIlim) establecido en la tabla 3.1-HE3, según las condiciones de uso del recinto.", "outcome": "correct", "gold": {"doc": "DB-HE", "section": "HE 3", "answer_key": "VEEI"}, "why": null, "s": 130.1, "citations": [{"n": 1, "cite": "DB-HE · HE 3 · p. 23", "text": "as zonas que reúnan unas determinadas condiciones. HE 3. Condiciones de las instalaciones de iluminación Cuantificación de la exigencia 3.1 Eficiencia energética de la instalación de iluminación El valor de eficiencia energética de la instalación (VEEI) de la instalación de iluminación no superará el valor límite (VEEIlim) establecido en la tabla 3.1-HE3: Tabla 3.1 - HE3 Valor límite de eficiencia energética de la instalación (VEEIlim) Uso del recinto VEEI límite Administrativo en general 3,0 Andenes de estaciones de transporte 3,0 Pabellones de exposición o ferias 3,0 Salas de diagnóstico (1) 3,5 Aulas y laboratorios (2) 3,5 Habitaciones de hospital (3) 4,0 Recintos interiores no descritos en este listado 4,0 Zonas comunes (4) 4,0 Almacenes, archivos, salas técnicas y cocinas 4,0 Aparcamientos 4,0 Espacios deportivos (5) 4,0 Estaciones de transporte (6) 5,0 Supermercados, hipermercados y grandes almacenes 5,0 Bibliotecas, museos y galerías de arte 5,0 Zonas comunes en edificios no residenciales 6,0 Centros comerciales (excluidas tiendas) (7) 6,0 Hostelería y restauración (8) 8,0 Rel"}], "rank": {"bm25": 1, "dense": 1, "hybrid": 1}}, {"id": 19, "q": "¿Hasta qué tensión se considera muy baja tensión en corriente alterna?", "answer": "[1] En corriente alterna, la tensión asignada no superior a 50V se considera muy baja tensión.", "outcome": "correct", "gold": {"doc": "REBT", "section": "ITC-BT-01", "answer_key": "50 V"}, "why": null, "s": 76.7, "citations": [{"n": 1, "cite": "REBT · Artículo 4 · 1 A efectos de aplicación de las prescripciones del presente Reglamento, las · p. 9", "text": "1. A efectos de aplicación de las prescripciones del presente Reglamento, las instalaciones eléctricas de baja tensión se clasifican, según las tensiones nominales que se les asignen, en la forma siguiente: Corriente alterna (Valor eficaz) Corriente continua (Valor medio aritmético) Muy baja tensión. Un ≤ 50V Un ≤ 75V Tensión usual. 50 < Un ≤ 500V 75 < Un ≤ 750V Tensión especial. 500 < Un ≤ 1000V 750 < Un ≤ 1500V"}], "rank": {"bm25": 1, "dense": 5, "hybrid": 2}}, {"id": 20, "q": "¿Cuál es la potencia máxima permisible por circuito en las tablas de circuitos de una vivienda?", "answer": "[2] La potencia máxima permisible por circuito será de 5.750 W.", "outcome": "unsupported", "gold": {"doc": "REBT", "section": "ITC-BT-25", "answer_key": "5.750 W"}, "why": {"es": "Cifra correcta, pero citó un pasaje de la ITC-BT-52 en vez de la tabla de la ITC-BT-25.", "en": "Correct figure, but it cited an ITC-BT-52 passage instead of the ITC-BT-25 table."}, "s": 123.5, "citations": [{"n": 2, "cite": "REBT · ITC-BT-52 · 3.1 Instalación en aparcamientos de viviendas unifamiliares. En las viviendas · p. 279", "text": "unifamiliar, en cuyo caso el circuito y sus protecciones se dimensionarán acorde con la potencia prevista. Tabla 1. Potencias instaladas normalizadas en un circuito de recarga para una vivienda unifamiliar Unominal Interruptor automático de protección en el origen del circuito Potencia instalada Estaciones de recarga por circuito 230 V 10 A 2.300 W 16 A 3.680 W 20 A 4.600 W 32 A 7.360 W 40 A 9.200 W 230/400 V 16 A 11.085 W de 1 a 3 20 A 13.856 W de 1 a 4 32 A 22.170 W de 1 a 6 40 A 27.713 W de 1 a 8 Para evitar desequilibrios en la red eléctrica los circuitos C13 monofásicos no dispondrán de una potencia instalada superior a los 9.200 W. Cuando en un circuito trifásico se conecten estaciones monofásicas, éstas se repartirán de la forma más equilibrada posible entre las tres fases. El número máximo de estaciones de recarga de la tabla 1 por cada circuito de recarga trifásico se ha calculado suponiendo estaciones monofásicas de una potencia unitaria de 3.680 W. El proyectista podrá ampliar o reducir el número máximo si justifica una potencia instalada por estación de recarga inferior o"}, {"n": 3, "cite": "REBT · ITC-BT-52 · 3.1 Instalación en aparcamientos de viviendas unifamiliares. En las viviendas · p. 279", "text": "3.1 Instalación en aparcamientos de viviendas unifamiliares. En las viviendas unifamiliares nuevas que dispongan de aparcamiento o zona prevista para poder albergar un vehículo eléctrico se instalará un circuito exclusivo para la recarga de vehículo eléctrico. Este circuito se denominará circuito C13, según la nomenclatura de la (ITC) BT-25 y seguirá el esquema de instalación 4a. Las instalaciones existentes en las que se desee instalar una estación de recarga se ajustarán también a lo establecido en este apartado. La alimentación de este circuito podrá ser monofásica o trifásica y la potencia instalada responderá generalmente a uno de los escalones de la tabla 1, según prevea el proyectista de la instalación. No obstante, el proyectista podrá justificar una potencia mayor, en función de la previsión de potencia por estación de recarga o del número de plazas construidas para la vivienda unifamiliar, en cuyo caso el circuito y sus protecciones se dimensionarán acorde con la potencia prevista. Tabla 1. Potencias instaladas normalizadas en un circuito de recarga para una vivienda unifam"}], "rank": {"bm25": 1, "dense": 1, "hybrid": 1}}, {"id": 21, "q": "¿Qué caída de tensión máxima se admite en un circuito interior de vivienda?", "answer": "[2] La caída de tensión máxima admitida en un circuito interior de vivienda es del 3 %.", "outcome": "correct", "gold": {"doc": "REBT", "section": "ITC-BT-19", "answer_key": "3 %"}, "why": null, "s": 117.5, "citations": [{"n": 2, "cite": "REBT · ITC-BT-19 · 2.2.2 Sección de los conductores. Caídas de tensión · p. 128", "text": "2.2.2 Sección de los conductores. Caídas de tensión La sección de los conductores a utilizar se determinará de forma que la caída de tensión entre el origen de la instalación interior y cualquier punto de utilización sea, salvo lo prescrito en las Instrucciones particulares, menor del 3 % de la tensión nominal para cualquier circuito interior de viviendas, y para otras instalaciones interiores o receptoras, del 3 % para alumbrado y del 5 % para los demás usos. Esta caída de tensión se calculará considerando alimentados todos los aparatos de utilización susceptibles de funcionar simultáneamente. El valor de la caída de tensión podrá compensarse entre la de la instalación interior y la de las derivaciones individuales, de forma que la caída de tensión total sea inferior a la suma de los valores límites especificados para ambas, según el tipo de esquema utilizado. Para instalaciones industriales que se alimenten directamente en alta tensión mediante un transformador de distribución propio, se considerará que la instalación interior de baja tensión tiene su origen en la salida del transf"}], "rank": {"bm25": 1, "dense": 2, "hybrid": 1}}, {"id": 22, "q": "¿Cada cuánto tiempo hay que hacer inspecciones periódicas de las instalaciones de baja tensión que necesitaron inspección inicial?", "answer": "[1] Las instalaciones eléctricas en baja tensión que necesitaron inspección inicial serán objeto de inspecciones periódicas cada 5 años.", "outcome": "correct", "gold": {"doc": "REBT", "section": "ITC-BT-05", "answer_key": "5 años"}, "why": null, "s": 91.5, "citations": [{"n": 1, "cite": "REBT · ITC-BT-05 · 4.2 Inspecciones periódicas. · p. 56", "text": "4.2 Inspecciones periódicas. Serán objeto de inspecciones periódicas, cada 5 años, todas las instalaciones eléctricas en baja tensión que precisaron inspección inicial, según el punto 4.1 anterior, y cada 10 años, las comunes de edificios de viviendas de potencia total instalada superior a 100 kW."}], "rank": {"bm25": 1, "dense": 1, "hybrid": 1}}, {"id": 23, "q": "¿Cómo se delimita el volumen 0 de un baño con difusor de ducha fijo?", "answer": "[1] El volumen 0 está limitado por el suelo y por un plano horizontal situado a 0,05 m por encima del suelo. En este caso, si el difusor de la ducha es fijo, el volumen 0 está limitado por el plano generatriz vertical situado a un radio de 0,6 m alrededor del difusor.", "outcome": "correct", "gold": {"doc": "REBT", "section": "ITC-BT-27", "answer_key": "0,6 m"}, "why": null, "s": 120.3, "citations": [{"n": 1, "cite": "REBT · ITC-BT-27 · 2.1.1 Volumen 0 · p. 175", "text": "2.1.1 Volumen 0 Comprende el interior de la bañera o ducha. En un lugar que contenga una ducha sin plato, el volumen 0 está delimitado por el suelo y por un plano horizontal situado a 0,05 m por encima del suelo. En este caso: a) Si el difusor de la ducha puede desplazarse durante su uso, el volumen 0 está limitado por el plano generatriz vertical situado a un radio de 1,2 m alrededor de la toma de agua de la pared o el plano vertical que encierra el área prevista para ser ocupada por la persona que se ducha; o b) Si el difusor de la ducha es fijo, el volumen 0 está limitado por el plano generatriz vertical situado a un radio de 0,6 m alrededor del difusor."}], "rank": {"bm25": 1, "dense": 1, "hybrid": 1}}, {"id": 24, "q": "¿A partir de qué potencia necesita proyecto una instalación eléctrica industrial?", "answer": "[1] A partir de una potencia instalada superior a 100 kW, una instalación industrial necesita proyecto [1].", "outcome": "wrong", "gold": {"doc": "REBT", "section": "ITC-BT-04", "answer_key": "20 kW"}, "why": {"es": "Tomó el umbral de otra fila de la misma tabla (100 kW, edificios de viviendas) en vez de 20 kW para industria.", "en": "Took the threshold from another row of the same table (100 kW, residential buildings) instead of 20 kW for industry."}, "s": 109.8, "citations": [{"n": 1, "cite": "REBT · ITC-BT-04 · 3.1 Para su ejecución, precisan elaboración de proyecto las nuevas instalaciones · p. 52", "text": ", excepto aparcamientos o estacionamientos. Sin límite. m Las de quirófanos y salas de intervención. Sin límite. n Las correspondientes a piscinas y fuentes. P > 5 kW. z Las correspondientes a las infraestructuras para la recarga del vehículo eléctrico. P > 50 kW. Instalaciones de recarga situadas en el exterior. P > 10 kW. Todas las instalaciones que incluyan estaciones de recarga previstas para el modo de carga 4. Sin límite. o Todas aquellas que, no estando comprendidas en los grupos anteriores, determine el Ministerio con competencias en materia de seguridad industrial, mediante la oportuna disposición. Según corresponda. [P = Potencia prevista en la instalación, teniendo en cuenta lo estipulado en la (ITC) BT-10]. No será necesaria la elaboración de proyecto para las instalaciones de recarga que se ejecuten en los grupos de instalación g) y h) existentes en edificios de viviendas, siempre que las nuevas instalaciones no estén incluidas en el grupo z)."}], "rank": {"bm25": null, "dense": 1, "hybrid": null}}, {"id": 25, "q": "¿Qué sensibilidad debe tener un interruptor diferencial para considerarse de alta sensibilidad?", "answer": "[1] Los dispositivos alimentados a través de un transformador de aislamiento no deben protegerse con diferenciales en el primario ni en el secundario del transformador. Los dispositivos de protección diferencial de alta sensibilidad (≤ 30 mA) y de clase A se emplearán para la protección individual de aquellos equipos que no estén alimentados a través de un transformador de aislamiento.", "outcome": "correct", "gold": {"doc": "REBT", "section": "ITC-BT-01", "answer_key": "30 mA"}, "why": null, "s": 116.0, "citations": [{"n": 1, "cite": "REBT · ITC-BT-38 · 2.1.4 Protección diferencial y contra sobreintensidades · p. 227", "text": "2.1.4 Protección diferencial y contra sobreintensidades Se emplearán dispositivos de protección diferencial de alta sensibilidad (≤ 30 mA) y de clase A, para la protección individual de aquellos equipos que no estén alimentados a través de un transformador de aislamiento, aunque el empleo de los mismos no exime de la necesidad de puesta a tierra y equipotencialidad. Se dispondrán las correspondientes protecciones contra sobreintensidades. Los dispositivos alimentados a través de un transformador de aislamiento no deben protegerse con diferenciales en el primario ni en el secundario del transformador."}], "rank": {"bm25": 1, "dense": 1, "hybrid": 1}}, {"id": 26, "q": "¿Qué esquema de instalación sigue el circuito de recarga de vehículo eléctrico en una vivienda unifamiliar?", "answer": "[1] En las viviendas unifamiliares nuevas que dispongan de aparcamiento o zona prevista para poder albergar un vehículo eléctrico se instalará un circuito exclusivo para la recarga de vehículo eléctrico. Este circuito se denominará circuito C13, según la nomenclatura de la (ITC) BT-25 y seguirá el esquema de instalación 4a.", "outcome": "correct", "gold": {"doc": "REBT", "section": "ITC-BT-52", "answer_key": "4a"}, "why": null, "s": 136.1, "citations": [{"n": 1, "cite": "REBT · ITC-BT-52 · 3.1 Instalación en aparcamientos de viviendas unifamiliares. En las viviendas · p. 279", "text": "3.1 Instalación en aparcamientos de viviendas unifamiliares. En las viviendas unifamiliares nuevas que dispongan de aparcamiento o zona prevista para poder albergar un vehículo eléctrico se instalará un circuito exclusivo para la recarga de vehículo eléctrico. Este circuito se denominará circuito C13, según la nomenclatura de la (ITC) BT-25 y seguirá el esquema de instalación 4a. Las instalaciones existentes en las que se desee instalar una estación de recarga se ajustarán también a lo establecido en este apartado. La alimentación de este circuito podrá ser monofásica o trifásica y la potencia instalada responderá generalmente a uno de los escalones de la tabla 1, según prevea el proyectista de la instalación. No obstante, el proyectista podrá justificar una potencia mayor, en función de la previsión de potencia por estación de recarga o del número de plazas construidas para la vivienda unifamiliar, en cuyo caso el circuito y sus protecciones se dimensionarán acorde con la potencia prevista. Tabla 1. Potencias instaladas normalizadas en un circuito de recarga para una vivienda unifam"}], "rank": {"bm25": 1, "dense": 1, "hybrid": 1}}, {"id": 27, "q": "¿Qué sección mínima deben tener los conductores de una derivación individual y su hilo de mando?", "answer": "[1] La sección mínima para los cables polares, neutro y protección en una derivación individual será de 6 mm². El hilo de mando, que será de color rojo, tendrá una sección de 1,5 mm².", "outcome": "correct", "gold": {"doc": "REBT", "section": "ITC-BT-15", "answer_key": "6 mm2"}, "why": null, "s": 112.7, "citations": [{"n": 1, "cite": "REBT · ITC-BT-15 · 3 CABLES · p. 112", "text": "según la tensión asignada del cable), cumplen con esta prescripción. Los elementos de conducción de cables con características equivalentes a los clasificados como «no propagadores de la llama» de acuerdo con las normas UNE-EN 50085-1 y UNE-EN 50086-1, cumplen con esta prescripción. La sección mínima será de 6 mm2 para los cables polares, neutro y protección y de 1,5 mm2 para el hilo de mando, que será de color rojo. Para el cálculo de la sección de los conductores se tendrá en cuenta lo siguiente: a) La demanda prevista por cada usuario, que será como mínimo la fijada por la RBT-010 y cuya intensidad estará controlada por los dispositivos privados de mando y protección. A efectos de las intensidades admisibles por cada sección, se tendrá en cuenta lo que se indica en la ITC-BT-19 y para el caso de cables aislados en el interior de tubos enterrados, lo dispuesto en la ITC-BT-07. b) La caída de tensión máxima admisible será: – Para el caso de contadores concentrados en más de un lugar: 0,5%. – Para el caso de contadores totalmente concentrados: 1%. – Para el caso de derivaciones indiv"}, {"n": 2, "cite": "REBT · ITC-BT-15 · 3 CABLES · p. 112", "text": "3. CABLES El número de conductores vendrá fijado por el número de fases necesarias para la utilización de los receptores de la derivación correspondiente y según su potencia, llevando cada línea su correspondiente conductor neutro así como el conductor de protección. En el caso de suministros individuales el punto de conexión del conductor de protección, se dejará a criterio del proyectista de la instalación. Además, cada derivación individual incluirá el hilo de mando para posibilitar la aplicación de diferentes tarifas. No se admitirá el empleo de conductor neutro común ni de conductor de protección común para distintos suministros. A efecto de la consideración del número de fases que compongan la derivación individual, se tendrá en cuenta la potencia que en monofásico está obligada a suministrar la empresa distribuidora si el usuario así lo desea. Los cables no presentarán empalmes y su sección será uniforme, exceptuándose en este caso las conexiones realizadas en la ubicación de los contadores y en los dispositivos de protección. Los conductores a utilizar serán de cobre o alumin"}], "rank": {"bm25": 4, "dense": 3, "hybrid": 1}}, {"id": 28, "q": "¿Cuál es el objeto del Reglamento electrotécnico para baja tensión?", "answer": "[4] El objeto del Reglamento Electrotécnico para Baja Tensión es establecer las condiciones técnicas y garantías que deben reunir las instalaciones eléctricas conectadas a una fuente de suministro en los límites de baja tensión, con la finalidad de preservar la seguridad de las personas y los bienes, asegurar el normal funcionamiento de dichas instalaciones y prevenir las perturbaciones en otras instalaciones y servicios, así como contribuir a la fiabilidad técnica y a la eficiencia económica de las instalaciones.", "outcome": "correct", "gold": {"doc": "REBT", "section": "Artículo 1", "answer_key": "condiciones técnicas"}, "why": null, "s": 73.1, "citations": [{"n": 4, "cite": "REBT · Artículo 1 · p. 8", "text": "Artículo 1. Objeto. El presente Reglamento tiene por objeto establecer las condiciones técnicas y garantías que deben reunir las instalaciones eléctricas conectadas a una fuente de suministro en los límites de baja tensión, con la finalidad de: a) Preservar la seguridad de las personas y los bienes. b) Asegurar el normal funcionamiento de dichas instalaciones y prevenir las perturbaciones en otras instalaciones y servicios. c) Contribuir a la fiabilidad técnica y a la eficiencia económica de las instalaciones."}], "rank": {"bm25": null, "dense": 1, "hybrid": 4}}, {"id": 29, "q": "¿Qué tensiones de contacto límite se consideran para la protección por corte automático?", "answer": "[1] La tensión límite convencional es igual a 50 V, valor eficaz en corriente alterna, en condiciones normales. En ciertas condiciones pueden especificarse valores menos elevados, como por ejemplo, 24 V para las instalaciones de alumbrado público contempladas en la ITC-BT-09, apartado 10.", "outcome": "correct", "gold": {"doc": "REBT", "section": "ITC-BT-24", "answer_key": "50 V"}, "why": null, "s": 118.7, "citations": [{"n": 1, "cite": "REBT · ITC-BT-24 · 4.1 Protección por corte automático de la alimentación · p. 157", "text": "4.1 Protección por corte automático de la alimentación El corte automático de la alimentación después de la aparición de un fallo está destinado a impedir que una tensión de contacto de valor suficiente, se mantenga durante un tiempo tal que puede dar como resultado un riesgo. Debe existir una adecuada coordinación entre el esquema de conexiones a tierra de la instalación utilizado de entre los descritos en la ITC-BT-08 y las características de los dispositivos de protección. El corte automático de la alimentación está prescrito cuando puede producirse un efecto peligroso en las personas o animales domésticos en caso de defecto, debido al valor y duración de la tensión de contacto. Se utilizará como referencia lo indicado en la norma UNE 20.572-1. La tensión límite convencional es igual a 50 V, valor eficaz en corriente alterna, en condiciones normales. En ciertas condiciones pueden especificarse valores menos elevados, como por ejemplo, 24 V para las instalaciones de alumbrado público contempladas en la ITC-BT-09, apartado 10. Se describen a continuación aquellos aspectos más signif"}], "rank": {"bm25": 1, "dense": 1, "hybrid": 1}}, {"id": 30, "q": "¿Cuándo deben hacerse inspecciones periódicas de las instalaciones comunes de edificios de viviendas?", "answer": "[1] Las inspecciones periódicas de las instalaciones comunes de edificios de viviendas deberán realizarse cada 10 años, siempre que la potencia total instalada sea superior a 100 kW.", "outcome": "correct", "gold": {"doc": "REBT", "section": "ITC-BT-05", "answer_key": "10 años"}, "why": null, "s": 89.2, "citations": [{"n": 1, "cite": "REBT · ITC-BT-05 · 4.2 Inspecciones periódicas. · p. 56", "text": "4.2 Inspecciones periódicas. Serán objeto de inspecciones periódicas, cada 5 años, todas las instalaciones eléctricas en baja tensión que precisaron inspección inicial, según el punto 4.1 anterior, y cada 10 años, las comunes de edificios de viviendas de potencia total instalada superior a 100 kW."}], "rank": {"bm25": 1, "dense": 1, "hybrid": 1}}, {"id": 101, "q": "¿Qué espesor mínimo de aislamiento exige el RITE para las tuberías de calefacción?", "answer": "No lo encuentro en los documentos indexados.", "outcome": "abstained_ok", "gold": null, "why": null, "s": 107.8, "citations": [], "rank": null}, {"id": 102, "q": "¿Qué resistencia característica mínima debe tener el hormigón armado según el Código Estructural?", "answer": "No lo encuentro en los documentos indexados.", "outcome": "abstained_ok", "gold": null, "why": null, "s": 111.8, "citations": [], "rank": null}, {"id": 103, "q": "¿Qué distancia mínima exige el reglamento de líneas de alta tensión entre conductores y edificios?", "answer": "No lo encuentro en los documentos indexados.", "outcome": "abstained_ok", "gold": null, "why": null, "s": 79.2, "citations": [], "rank": null}]};
+const $ = (id) => document.getElementById(id);
+const S = D.summary, pct = (v) => Math.round(v * 100) + " %";
+const OUT = {
+  correct: ["Correcta y citada", "var(--good)"], unsupported: ["Cifra correcta, cita fallida", "var(--warn)"],
+  wrong: ["Incorrecta", "var(--crit)"], abstained: ["No la encontró", "#8a8a85"], abstained_ok: ["Fuera del corpus: se abstuvo", "var(--s1)"],
+};
+
+$("kpis").innerHTML = `
+  <div class="kpi hero-kpi"><div class="l">Respuestas correctas y citadas</div><div class="v"><span data-count="${S.correct}">0</span>/${S.n_in_scope}</div><div class="d">+${S.unsupported} con la cifra bien y la cita mal</div></div>
+  <div class="kpi"><div class="l">Pasaje correcto en el top 5</div><div class="v" data-count="${Math.round(D.retrieval.dense["psg@5"] * 100)}" data-suf=" %">0</div><div class="d">frente a ${pct(D.retrieval.bm25["psg@5"])} solo con palabras clave</div></div>
+  <div class="kpi"><div class="l">Preguntas fuera de la norma</div><div class="v">${S.oos_abstained}/${S.n_out_of_scope}</div><div class="d">dijo «no lo encuentro» en vez de inventar</div></div>
+  <div class="kpi"><div class="l">Tiempo por respuesta</div><div class="v">~${Math.round(S.s_llm_median / 60)} min</div><div class="d">portátil, solo CPU (mediana ${Math.round(S.s_llm_median)} s)</div></div>`;
+Viz.countUp($("kpis"));
+
+// Outcome bar
+const parts = ["correct", "unsupported", "wrong", "abstained"].map((k) => [k, S[k]]);
+$("stack").innerHTML = parts.filter(([, n]) => n).map(([k, n]) =>
+  `<div style="width:${(100 * n) / S.n_in_scope}%;background:${OUT[k][1]}" title="${OUT[k][0]}: ${n}">${n}</div>`).join("");
+$("stack-legend").innerHTML = parts.map(([k, n]) => `<span><i style="background:${OUT[k][1]};height:10px;width:10px;border-radius:50%"></i>${OUT[k][0]} (${n})</span>`).join("");
+$("stack-note").textContent = `En ${S.format_slips} respuestas válidas el modelo añadió al final «No lo encuentro…»; esa coletilla se elimina al mostrar la respuesta y no cambia la clasificación.`;
+
+// Retrieval table
+const names = { bm25: "Palabras clave (BM25)", dense: "Significado (bge-m3)", hybrid: "Híbrida (fusión RRF)" };
+$("mtab").innerHTML = ["bm25", "dense", "hybrid"].map((m) => {
+  const r = D.retrieval[m];
+  return `<tr class="${m === "dense" ? "best" : ""}"><td>${names[m]}</td><td>${pct(r["psg@1"])}</td><td>${pct(r["psg@5"])}</td><td>${pct(r["psg@10"])}</td><td>${r.mrr.toFixed(2)}</td></tr>`;
+}).join("");
+$("ret-note").textContent = "Con estas 30 preguntas la fusión híbrida no mejora a los embeddings solos (90 % frente a 93 % en el top 5). Se mantiene híbrida porque acierta más en la primera posición y protege búsquedas de códigos y cifras literales, pero es una decisión a validar con más preguntas.";
+
+// Docs
+Viz.bars($("docs"), { items: D.corpus.docs.map((d) => ({ label: `${d.doc} (${d.pages} p.)`, value: d.chunks })), color: "var(--accent)" });
+
+// Explorer
+const esc = (s) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+const docOf = (a) => a.gold ? a.gold.doc : "Fuera del corpus";
+let filter = "all", cur = 27;
+const FIL = [["all", "Todas"], ["correct", "Correctas"], ["wrong", "Incorrectas"], ["abstained", "No encontradas"], ["unsupported", "Cita fallida"], ["abstained_ok", "Fuera del corpus"]];
+function renderFilters() {
+  $("filters").innerHTML = FIL.map(([k, l]) => `<button class="chip" aria-pressed="${filter === k}" data-f="${k}">${l}</button>`).join("");
+  $("filters").querySelectorAll("button").forEach((b) => b.onclick = () => { filter = b.dataset.f; renderFilters(); renderList(); });
+}
+function renderList() {
+  const items = D.answers.filter((a) => filter === "all" || a.outcome === filter);
+  if (!items.find((a) => a.id === cur) && items.length) cur = items[0].id;
+  $("qlist").innerHTML = items.map((a) => `<button class="qi" aria-current="${a.id === cur}" data-id="${a.id}">
+      <span class="dot o-${a.outcome}"></span><span>${esc(a.q)}<br><span class="doc">${docOf(a)}${a.gold ? " · " + a.gold.section : ""}</span></span><span></span></button>`).join("");
+  $("qlist").querySelectorAll("button").forEach((b) => b.onclick = () => { cur = +b.dataset.id; renderList(); });
+  renderDetail();
+}
+function renderDetail() {
+  const a = D.answers.find((x) => x.id === cur); if (!a) { $("detail").innerHTML = ""; return; }
+  const key = a.gold ? a.gold.answer_key : null;
+  const hl = (t) => { let h = esc(t); if (key) h = h.split(esc(key)).join(`<mark>${esc(key)}</mark>`); return h; };
+  const ans = esc(a.answer).replace(/\[(\d+(?:,\s*\d+)*)\]/g, "<sup>[$1]</sup>");
+  $("detail").innerHTML = `<div class="chat">
+    <span class="badge" style="background:${OUT[a.outcome][1]}">${OUT[a.outcome][0]}</span>
+    <div class="q">${esc(a.q)}</div><div class="a">${ans}</div>
+    ${a.why ? `<div class="why">${esc(a.why.es)}</div>` : ""}
+    ${a.citations.length ? `<div class="cites">${a.citations.map((c) => `<div class="cite"><b>[${c.n}] ${esc(c.cite)}</b>${hl(c.text.slice(0, 700))}${c.text.length > 700 ? "…" : ""}</div>`).join("")}</div>` : ""}
+    <div class="gold">${a.gold ? `Respuesta de referencia: <b>${esc(key)}</b> en ${a.gold.doc} · ${a.gold.section}` : "Esta norma no está entre los documentos indexados."} · ${Math.round(a.s)} s en CPU</div></div>`;
+}
+renderFilters(); renderList();
+
+const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .1 });
+document.querySelectorAll(".reveal").forEach((e) => io.observe(e));
+
+// Hero background: passages lighting up as a query sweeps
+(function () {
+  const c = $("bg"), x = c.getContext("2d"); let w, h, t = 0;
+  const fit = () => { w = c.width = c.offsetWidth * devicePixelRatio; h = c.height = c.offsetHeight * devicePixelRatio; };
+  fit(); addEventListener("resize", fit);
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const lines = Array.from({ length: 60 }, (_, i) => ({ y: (i + .5) / 60, x: .45 + Math.random() * .5, l: .05 + Math.random() * .18 }));
+  (function d() {
+    x.clearRect(0, 0, w, h);
+    const sy = (Math.sin(t) * .5 + .5);
+    lines.forEach((L) => {
+      const near = Math.abs(L.y - sy) < .06;
+      x.fillStyle = near ? "rgba(25,158,112,.85)" : "rgba(25,158,112,.14)";
+      x.fillRect(L.x * w, L.y * h, L.l * w, 3 * devicePixelRatio);
+    });
+    t += 0.006; if (!reduce) requestAnimationFrame(d);
+  })();
+})();
+</script>
+</body>
+</html>
