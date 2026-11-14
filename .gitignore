@@ -1,0 +1,5 @@
+data/pdf/*.pdf
+.venv/
+__pycache__/
+*.pyc
+results/retrieval_eval_bm25.json

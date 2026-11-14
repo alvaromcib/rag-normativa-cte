@@ -1,0 +1,30 @@
+{"id": 1, "q": "¿Cuál es la longitud máxima del recorrido de evacuación hasta una salida de planta en general?", "doc": "DB-SI", "section": "SI 3", "keys": ["25 m"], "answer_key": "25 m"}
+{"id": 2, "q": "¿Qué anchura mínima debe tener una puerta en un recorrido de evacuación?", "doc": "DB-SI", "section": "SI 3", "keys": ["0,80 m", "Puertas y pasos"], "answer_key": "0,80 m"}
+{"id": 3, "q": "¿Qué superficie máxima puede tener un sector de incendio en un edificio de viviendas?", "doc": "DB-SI", "section": "SI 1", "keys": ["2.500 m2", "Residencial Vivienda"], "answer_key": "2.500 m2"}
+{"id": 4, "q": "¿Cada cuántos metros de recorrido hay que colocar extintores portátiles?", "doc": "DB-SI", "section": "SI 4", "keys": ["15 m", "Extintores"], "answer_key": "15 m"}
+{"id": 5, "q": "¿Qué anchura libre debe tener el vial de aproximación de los vehículos de bomberos?", "doc": "DB-SI", "section": "SI 5", "keys": ["3,5 m"], "answer_key": "3,5 m"}
+{"id": 6, "q": "¿Qué resistencia al fuego necesita la fachada en la franja junto a una escalera protegida?", "doc": "DB-SI", "section": "SI 2", "keys": ["franja de 1 m"], "answer_key": "EI 60"}
+{"id": 7, "q": "¿Qué resistencia al fuego estructural se exige en un edificio de viviendas de menos de 15 m de altura de evacuación?", "doc": "DB-SI", "section": "SI 6", "keys": ["R 60", "Residencial Vivienda"], "answer_key": "R 60"}
+{"id": 8, "q": "¿Qué altura libre o gálibo mínimo debe tener el vial de aproximación de los bomberos?", "doc": "DB-SI", "section": "SI 5", "keys": ["4,5 m"], "answer_key": "4,5 m"}
+{"id": 9, "q": "¿Qué altura mínima deben tener las barandillas cuando el desnivel es menor de 6 metros?", "doc": "DB-SUA", "section": "SUA 1", "keys": ["0,90 m"], "answer_key": "0,90 m"}
+{"id": 10, "q": "¿Cuánto debe medir como mínimo la huella de un peldaño en una escalera de uso general?", "doc": "DB-SUA", "section": "SUA 1", "keys": ["28 cm"], "answer_key": "28 cm"}
+{"id": 11, "q": "¿Cuál es la pendiente máxima de una rampa que no forma parte de un itinerario accesible?", "doc": "DB-SUA", "section": "SUA 1", "keys": ["12%"], "answer_key": "12%"}
+{"id": 12, "q": "¿Qué iluminancia mínima debe tener una zona de circulación interior?", "doc": "DB-SUA", "section": "SUA 4", "keys": ["100 lux"], "answer_key": "100 lux"}
+{"id": 13, "q": "¿Qué iluminancia mínima se exige en zonas de circulación exteriores?", "doc": "DB-SUA", "section": "SUA 4", "keys": ["20 lux"], "answer_key": "20 lux"}
+{"id": 14, "q": "¿Cuándo es obligatorio un ascensor accesible o una rampa accesible entre plantas?", "doc": "DB-SUA", "section": "SUA 9", "keys": ["ascensor accesible"], "answer_key": "ascensor accesible"}
+{"id": 15, "q": "¿Qué porcentaje mínimo de la demanda de agua caliente sanitaria debe cubrirse con renovables si la demanda es baja?", "doc": "DB-HE", "section": "HE 4", "keys": ["60%", "5000 l/d"], "answer_key": "60%"}
+{"id": 16, "q": "¿A partir de qué superficie construida hay que generar electricidad renovable en un edificio nuevo?", "doc": "DB-HE", "section": "HE 5", "keys": ["1.000 m2"], "answer_key": "1.000 m2"}
+{"id": 17, "q": "¿Cuántas estaciones de recarga de vehículo eléctrico hay que instalar por plaza de aparcamiento?", "doc": "DB-HE", "section": "HE 6", "keys": ["40 plazas"], "answer_key": "40 plazas"}
+{"id": 18, "q": "¿Qué indicador limita la eficiencia energética de la instalación de iluminación?", "doc": "DB-HE", "section": "HE 3", "keys": ["VEEI"], "answer_key": "VEEI"}
+{"id": 19, "q": "¿Hasta qué tensión se considera muy baja tensión en corriente alterna?", "doc": "REBT", "section": "ITC-BT-01", "keys": ["50 V"], "answer_key": "50 V"}
+{"id": 20, "q": "¿Cuál es la potencia máxima permisible por circuito en las tablas de circuitos de una vivienda?", "doc": "REBT", "section": "ITC-BT-25", "keys": ["5.750 W"], "answer_key": "5.750 W"}
+{"id": 21, "q": "¿Qué caída de tensión máxima se admite en un circuito interior de vivienda?", "doc": "REBT", "section": "ITC-BT-19", "keys": ["3 %"], "answer_key": "3 %"}
+{"id": 22, "q": "¿Cada cuánto tiempo hay que hacer inspecciones periódicas de las instalaciones de baja tensión que necesitaron inspección inicial?", "doc": "REBT", "section": "ITC-BT-05", "keys": ["cada 5 años"], "answer_key": "5 años"}
+{"id": 23, "q": "¿Cómo se delimita el volumen 0 de un baño con difusor de ducha fijo?", "doc": "REBT", "section": "ITC-BT-27", "keys": ["0,6 m", "volumen 0"], "answer_key": "0,6 m"}
+{"id": 24, "q": "¿A partir de qué potencia necesita proyecto una instalación eléctrica industrial?", "doc": "REBT", "section": "ITC-BT-04", "keys": ["20 kW"], "answer_key": "20 kW"}
+{"id": 25, "q": "¿Qué sensibilidad debe tener un interruptor diferencial para considerarse de alta sensibilidad?", "doc": "REBT", "section": "ITC-BT-01", "keys": ["30 mA"], "answer_key": "30 mA"}
+{"id": 26, "q": "¿Qué esquema de instalación sigue el circuito de recarga de vehículo eléctrico en una vivienda unifamiliar?", "doc": "REBT", "section": "ITC-BT-52", "keys": ["esquema de instalación 4a"], "answer_key": "4a"}
+{"id": 27, "q": "¿Qué sección mínima deben tener los conductores de una derivación individual y su hilo de mando?", "doc": "REBT", "section": "ITC-BT-15", "keys": ["6 mm2", "hilo de mando"], "answer_key": "6 mm2"}
+{"id": 28, "q": "¿Cuál es el objeto del Reglamento electrotécnico para baja tensión?", "doc": "REBT", "section": "Artículo 1", "keys": ["condiciones técnicas"], "answer_key": "condiciones técnicas"}
+{"id": 29, "q": "¿Qué tensiones de contacto límite se consideran para la protección por corte automático?", "doc": "REBT", "section": "ITC-BT-24", "keys": ["50 V"], "answer_key": "50 V"}
+{"id": 30, "q": "¿Cuándo deben hacerse inspecciones periódicas de las instalaciones comunes de edificios de viviendas?", "doc": "REBT", "section": "ITC-BT-05", "keys": ["cada 10 años"], "answer_key": "10 años"}

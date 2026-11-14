@@ -1,0 +1,4 @@
+numpy
+rank_bm25
+requests
+pymupdf      # only needed to re-run src/ingest.py from the PDFs
